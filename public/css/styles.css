@@ -1,0 +1,1095 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&display=swap');
+
+:root{
+    --black: #292420;
+    --colorOne: #A1E0E7;
+    --colorTwo: #70C3D5;
+    --colorThree: #32848F;
+    --yellow: #FFD028;
+    --pending: rgb(241, 220, 102);
+
+    --confirm: rgb(51, 164, 51);
+    --white: #fff;
+    --whiteOne: #F7FFFF;
+    --bg: #EAECF2;
+    --box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+*{  
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+}
+
+
+html{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 65%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    color: var(--black);
+    transition: all .2s ease-in-out;
+}
+
+
+.status .pending{
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    background-color: var(--pending);
+    color: var(--white);
+    margin-left: .5rem;
+
+}
+
+/* MODAL START */
+.myProfile{
+    cursor: pointer;
+}
+
+.modal, .modalProfile{
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background-color: rgb(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.modal.active, .modalProfile.active{
+    display: flex;
+}
+
+.modal .modalClose, .modalProfile .modalCloseProfile{
+    font-size: 2rem;
+    position: absolute;
+    right: 2rem;
+    top: 1.5rem;
+    cursor: pointer;
+}
+
+.modal .box h1, .modalProfile .box h1{
+    text-align: center;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+}
+
+.modal .box, .modalProfile .box{
+    position: relative;
+    padding: 2rem;
+    background-color: var(--white);
+    border-radius: .5rem;
+    box-shadow: var(--box-shadow);
+    width: 50rem;
+}
+
+.modal .box .labelBox, .modalProfile .box .labelBox{
+    margin-bottom: 1.5rem;
+}
+
+.modal .box input,
+.modal .box select,
+.modalProfile .box input,
+.modalProfile .box select{
+    width: 100%;
+    padding: 1.5rem 1rem;
+    border-radius: .5rem;
+    border: 1px solid rgb(0, 0, 0, 0.2);
+
+    margin-top: .5rem;
+} 
+
+.modal .box.modal .box select option, .modalProfile .box.modal .box select option{
+    font-size: 1.5rem;
+}
+
+
+.modal .box button, .modalProfile .box button{
+    width: 100%;
+    padding: 1.5rem 1rem;
+    margin-top: 1rem;
+    background-color: var(--colorThree);
+    color: var(--white);
+    border-radius: .5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+}
+
+
+/* MODAL END */
+.flatpickr-day.disabled-date {
+    background-color: red !important;
+}
+
+.disabled-date {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 150px;
+    bottom: 3px;
+    left: calc(50% - 1.5px);
+    content: " ";
+    display: block;
+    background: #3d8eb9;
+}
+
+.event.busy {
+    background: #f64747;
+}
+
+
+/* Nav menu start*/
+.menuBar{
+    font-size: 3rem;
+    cursor: pointer;
+    display: none;
+}
+
+.menuBarActive{
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fefbf6;
+    top: 0;
+    z-index: 1000;
+    transition: .5s ease;
+}
+
+.menuBarActive.active{
+    display: block;
+    transition: .5s ease-in;
+
+}
+
+.menuBarActive .closeBar{
+    position: absolute;
+    right: 5%;
+    top: 2%;
+    font-size: 3rem;
+    cursor: pointer;
+}
+
+
+.menuBarActive .box-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.menuBarActive .box-container .links a{
+    display: block;
+    font-size: 3rem;
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--black);
+}
+
+.menuBarActive .box-container .links .btn{
+    /* display: flex;
+    gap: 2rem; */
+    padding: 1rem 1.5rem;
+    background: var(--colorThree);
+    color: var(--white);
+    border-radius: .5rem;
+}
+/* 
+.menuBarActive .box-container .links .btn a{
+    padding: 1rem 1.5rem;
+    background: var(--colorThree);
+    color: var(--white);
+    border-radius: .5rem;
+
+} */
+
+
+/* Nav menu end */
+
+
+/* --------------------------- NAVBAR START------------------------ */
+.navbar{
+    display: flex;
+    position: sticky;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2.5rem;
+    color: var(--black);
+    box-shadow: var(--box-shadow);
+    background: var(--white);
+    width: 100%;
+    z-index: 100;
+}
+
+.navbar .links a{
+    color: var(--black);
+    font-size: 1.5rem;
+    padding: 3rem 1rem;
+}
+
+.navbar .links a:hover{
+    border-bottom:2px solid var(--colorThree);
+}
+
+.navbar .leftBar{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.navbar .leftBar .image{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.navbar .leftBar .image .logoText p{
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.navbar .leftBar .image img{
+    width: 5rem;
+}
+
+.navbar .rightBar a{
+    margin-left: 1rem;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    color: var(--white);
+    background: var(--colorThree);
+    border-radius: 3px;
+}
+
+.navbar .rightBar a:hover{
+    color: var(--black);
+    background: var(--colorOne);
+    outline: 2px solid var(--colorThree);
+}
+
+
+/* --------------------------- NAVBAR ENDS------------------------ */
+
+
+/* --------------------------- HERO STARTS ------------------------  */
+.hero{
+    position: relative;
+    background-color: var(--colorThree);
+}
+
+.hero img{
+    width: 100%;
+    height: 70rem;
+    position: absolute;
+    object-fit: cover;
+    opacity: 80%;
+}
+
+.hero .box-container{
+    padding: 2rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15rem;
+    height: 70rem;
+}
+
+.hero .box-container .left{
+    padding: 2rem;
+    
+    color: var(--white);
+}
+
+.hero .box-container .left h1{
+    font-size: 4rem;
+    width: 45rem;
+    margin-bottom: 2rem;
+
+}
+
+.hero .box-container .left p{
+    font-size: 1.8rem;
+    width: 65rem;
+}
+
+.hero .box-container .right{
+    background: var(--white);
+    padding: 4rem 3rem;
+    border-radius: 1rem;
+    box-shadow: var(--box-shadow);
+}
+
+
+.hero .box-container .right h1{
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.hero .box-container .right form .labelBox{
+    margin: 1.5rem 0;
+}
+
+
+.hero .box-container .right form .labelBox input{
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1.5rem;
+    border: 1px solid rgb(0, 0, 0, 0.1);
+    margin-top: .5rem;
+}
+
+.hero .box-container .right form .labelBox select{
+    margin-top: .5rem;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1.5rem;
+    border-radius: .5rem;
+    border: 1px solid rgb(0, 0, 0, 0.1);
+}
+
+.hero .box-container .right form button{
+    padding: 1rem 1.5rem;
+    color: var(--white);
+    background: var(--colorThree);
+    width: 100%;
+    text-align: center;
+    border-radius: .5rem;
+    cursor: pointer;
+}
+
+.hero .box-container .right form button:hover{
+    outline: 2px solid var(--colorThree);
+    background-color: var(--colorOne);
+    color: var(--black);
+}
+
+/* --------------------------- HERO ENDS ------------------------  */
+
+
+/* --------------------------- GALLERY START ------------------------  */
+
+.gallery{
+    padding: 0 5%;
+    padding-top: 10rem;
+    padding-bottom: 5rem; 
+    text-align: center;
+}
+
+
+.gallery .box{
+    margin-bottom: 3rem;
+    font-size: 2rem;
+
+}
+
+
+.gallery .box-container .right img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: .5rem;
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+}
+
+.gallery .box-container .right .box{
+    position: relative;
+}
+
+.gallery .box-container .right .box:hover{
+    outline: 1px solid #000;
+    border-radius: .5rem;
+}
+
+.gallery .box-container .right .box .blank h1{
+    display: none;
+    font-size: 1.5rem;
+    width: 500;
+}
+
+.gallery .box-container .right .box.active .blank h1{
+    display: block;
+}
+
+.gallery .box-container .right .box.active .blank{
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.581);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    border-radius: .5rem;
+    cursor: pointer;
+}
+
+.gallery .box-container .right .box.active img{
+    filter: blur(4px);
+}
+
+.gallery .box-container .right{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 2rem;
+
+    justify-content: center;
+    /* position: absolute; */
+}
+
+/* --------------------------- GALLERY ENDS ------------------------  */
+
+
+
+/* --------------------------- ROOM START ------------------------  */
+.rooms{
+    padding: 5rem 5%;
+}
+
+.rooms .title{
+    font-size: 3rem;
+    letter-spacing: 2px;
+    margin-bottom: 2.5rem;
+    font-weight: 500;
+
+}
+
+.rooms .box-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 3rem;
+    justify-content: center;
+}
+
+.rooms .box-container .box{
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+    border-radius: .5rem;
+}
+
+.rooms .box-container .box img{
+    height: 20rem;
+    width: 100%;
+    object-fit: cover;
+    border-top-right-radius: .5rem;
+    border-top-left-radius: .5rem;
+    cursor: pointer;
+
+}
+
+.rooms .box-container .box .info{
+    padding: 2em;
+}
+
+
+.rooms .box-container .box .info h1{
+    font-synthesis: 1.5rem;
+    color: var(--colorThree);
+    margin-bottom: .5rem;
+}
+
+
+/* --------------------------- ROOM ENDS ------------------------  */
+
+/* --------------------------- AMENITIES START ------------------------  */
+.amenities{
+    padding: 5rem 5%;
+    text-align: center;
+}
+
+.amenities .info{
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.amenities .other{
+    margin-top: 1rem;
+    font-size: 1.5rem;
+
+}
+
+.amenities h1{
+    margin-bottom: 1.5rem;
+}
+
+.amenities .box-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+    gap: 5rem;
+}
+
+.amenities .box-container .box{
+    padding: 4rem 3rem;
+
+}
+
+.amenities .box-container .box i{
+    font-size: 5rem;
+}
+
+.amenities .box-container .box p{
+    font-size: 2rem;
+    margin-top: 1.5rem;
+
+}
+/* --------------------------- AMENITIES ENDS ------------------------  */
+
+
+/* --------------------------- MAP START ------------------------  */
+
+.map{
+    padding: 5rem 5%;
+    background-color: var(--colorTwo);
+    position: relative;
+    background-image: url('../images/two.svg');
+    background-size: cover;
+
+}
+
+.map .box-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+}
+
+.map .box-container .mapDetails{
+    flex: 1 1 30rem;
+    color: var(--white);
+    font-size: 2.5rem;
+}
+
+.map .box-container .mapDetails h1{
+    margin-bottom: 1.5rem;
+}
+
+.map .box-container .mapDetails .btn{
+    margin-top: 1.5rem;
+    padding: 1rem 0;
+}
+
+.map .box-container .mapDetails .btn a:hover{
+    outline: 2px solid var(--colorThree);
+    color: var(--black);
+    background-color: var(--colorOne);
+}
+
+.map .box-container .mapDetails .btn a{
+    padding: 1rem 2rem;
+    background-color: var(--colorThree);
+    border-radius: .5rem;
+    color: var(--bg);
+    box-shadow: var(--box-shadow);
+}
+
+.map .box-container .mapLocation iframe{
+    box-shadow: var(--box-shadow);
+    z-index: 100;
+    border-radius: .5rem;
+    width: 100%;
+}
+
+.map .box-container .mapLocation{
+    flex: 1 1 70rem;
+}
+
+/* --------------------------- MAP ENDS ------------------------  */
+
+
+
+/* --------------------------- LOGIN START ------------------------- */
+.login, .register{
+    height: calc(100vh - 83.40px);
+    background-image: url('../images/two.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 2rem;
+    
+}
+
+
+.login .box-container, .register .box-container{
+    padding: 4rem 3rem;
+    border-radius: 3px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    background: var(--white);
+    box-shadow: var(--box-shadow);
+}
+
+.login .box-container .header, .register .box-container .header{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+
+.login .box-container .header a, .register .box-container .header a{
+    color: var(--black);
+    padding-bottom: .5rem;
+    border-bottom: 1px solid var(--colorThree)
+}
+
+.login .box-container form .labelBox, .register .box-container form .labelBox{
+    margin: 1rem 0;
+}
+
+.login .box-container form .labelBox input, .register .box-container form .labelBox input{
+    margin-top: .5rem;
+    width: 100%;
+    padding: 1.5rem 2rem;
+    font-size: 1.5rem;
+    color: var(--black);
+    border-radius: .5rem;
+    border: 1.5px solid var(--black);
+}
+
+.login .box-container form .labelBox label, .register .box-container form .labelBox label{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.login .box-container form button, .register .box-container form button{
+    padding: 1.5rem 2rem;
+    color: var(--white);
+    background: var(--colorThree);
+    border-radius: .5rem;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.forgotOrSignup{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+}
+
+.forgotOrSignup a{
+    color: var(--black);
+}
+
+.forgotOrSignup a:hover{
+    text-decoration: underline;
+}
+
+/* --------------------------- LOGIN END ------------------------- */
+
+/* --------------------------- REVIEWS START ----------------------- */
+.reviews {
+    padding: 10rem 5%;
+    text-align: center;
+}
+
+.reviews .right{
+    flex: 1 1 10rem;
+    font-size: 2rem;   
+
+}
+
+.reviews .right .secondP{
+    padding-left: 2rem;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+
+}
+
+
+.reviews .sectionTitle{
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.reviews .review-slider{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+    flex: 1 1 50rem;
+}
+
+
+
+.reviews .review-slider .header .info{
+    text-align: left;
+}
+
+
+.reviews .review-slider .box{
+    background-color: var(--white);
+    border-radius: 3px;
+    box-shadow: var(--box-shadow);
+    padding: 4rem 3rem;
+    width: 50rem;
+    height: 100%;
+}
+
+.reviews .review-slider .box .header, .reviews .review-slider .box .header .image{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.reviews .review-slider .box .header .image img{
+    height: 5rem;
+    border-radius: 50%;
+}
+
+.reviews .review-slider .box .header .stars i{
+    font-size: 1.5rem;
+    color: var(--yellow)
+}
+
+.reviews .review-slider .box .reviewText{
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    line-height: 2rem;
+} 
+/* --------------------------- REVIEWS END ----------------------- */
+
+
+
+
+/* --------------------------- FOOTER START ----------------------- */
+.footer{
+    padding: 5rem 5%;
+    background-color: var(--black);
+    color: var(--bg);
+    text-transform: capitalize;
+}
+
+.footer .box-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+    gap: 2rem;
+}
+
+.footer .box-container .box h3{
+    font-size: 2.5rem;
+    padding: 1rem 0;
+}
+
+.footer .box-container .box a{
+    display: block;
+    font-size: 1.5rem;
+    padding: 1rem 0;
+    color: var(--bg);
+}
+
+.footer .box-container .box a i{
+    padding-right: 1rem;
+    color: var(--yellow);
+}
+
+.footer .box-container .box a:hover i{
+    padding-right: 2rem;
+}
+
+/* --------------------------- FOOTER END ----------------------- */
+
+
+
+/* --------------------------- BOOK NOW START----------------------- */
+
+.pricing table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.pricing td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.pricing table i{
+    font-size: 1.2rem;
+    padding-right: .5rem;
+
+}
+
+.pricing{
+    padding: 10rem 17%;
+    font-size: 1.5rem;
+    background-image: url('../images/two.svg');
+    background-size: cover;
+}
+
+.pricing .titleHeader{
+    color: var(--white);
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.pricing .titleHeader h1{
+    margin-bottom: 1rem;
+}
+
+.pricing .box-container{
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+}
+
+.pricing .box-container .left{
+    width: 100%;
+    flex: 1 1 60rem;
+}
+
+.pricing .box-container .left .box{
+    padding: 2rem;
+    background-color: var(--white);
+    border-radius: .5rem;
+    margin-bottom: 3rem;
+    box-shadow: var(--box-shadow);
+    width: 100%;
+}
+
+.pricing .box-container .left .box .days{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.pricing .box-container .right{
+    flex: 1 1 25rem;
+    font-size: 1.5rem;
+}
+
+.pricing .box-container .right h1{
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.pricing .box-container .right .box{
+    padding: 2rem;
+    background-color: var(--white);
+    border-radius: .5rem;
+    box-shadow: var(--box-shadow);
+}
+
+.pricing .box-container .right .box .labelBox{
+    margin-bottom: 1.5rem;
+}
+
+.pricing .box-container .right .box input,
+.pricing .box-container .right .box select{
+    width: 100%;
+    padding: 1.5rem 1rem;
+    border-radius: .5rem;
+    border: 1px solid rgb(0, 0, 0, 0.2);
+
+    margin-top: .5rem;
+} 
+
+.pricing .box-container .right .box select option{
+    font-size: 1.5rem;
+}
+
+.pricing .box-container .right .box .total{
+    text-align: right;
+}
+
+.pricing .box-container .right .box button{
+    width: 100%;
+    padding: 1.5rem 1rem;
+    margin-top: 1rem;
+    background-color: var(--colorThree);
+    color: var(--white);
+    border-radius: .5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+}
+
+/* --------------------------- BOOK NOW END ----------------------- */
+
+
+/* --------------------------- MY BOOKING START ----------------------- */
+
+.myBookings{
+    padding: 10rem 12%;
+    font-size: 1.5rem;
+    background-image: url('../images/two.svg');
+    background-size: cover;
+    height: 100vh;
+}
+
+.myBookings .titleHeader{
+    color: var(--white);
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.myBookings .box-container{
+    display: flex;
+    /* flex-wrap: wrap-reverse; */
+    gap: 2rem;
+}
+
+.myBookings .box-container .left{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    justify-content: center;
+    gap: 2rem;
+    height: 100%;
+    flex: 1 1 60rem;
+}
+
+.myBookings .box-container .left .box{
+    margin: 0 auto;
+    width: 30rem;
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: .5rem;
+    box-shadow: var(--box-shadow); 
+}
+
+.myBookings .box-container .left .box p{
+    padding: .5rem;
+}
+
+.myBookings .box-container .left .box p .bold{
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.myBookings .box-container .left .box img{
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.myBookings .box-container .left .box button{
+    padding: 1rem 1.5rem;
+    width: 100%;
+    border-radius: .5rem;
+    background-color: var(--white);
+    color: var(--colorThree);
+    font-size: 1.5rem;
+    border: 2px solid var(--colorThree);
+    box-shadow: var(--box-shadow);
+    margin-top: 1.5rem;
+    cursor: pointer;
+}
+
+/* --------------------------- MY BOOKING END ----------------------- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 1300px) {
+    .hero .box-container{
+        gap: 0;
+    }
+
+    .myBookings{
+        height: 100%;
+    }
+
+    .pricing, .reviews{
+        padding: 2rem;
+    }
+
+    .login, .register{
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .login .box-container, .register .box-container{
+        position: relative;
+        transform: none;
+        top: 0;
+        left: 0;
+    }
+}
+
+@media (max-width: 1000px) {
+    nav .rightBar, nav .links{
+        display: none;
+    }
+
+    .menuBar{
+        display: block;
+    }
+}
+
+@media (max-width: 786px) {
+    html{
+        font-size: 55%;
+    }
+
+    section, .myBookings{
+        padding: 2rem;
+    }
+
+    .hero .box-container .left h1, .hero .box-container .left p, .myBookings .box-container .left .box{
+        width: 100%;
+    }
+
+    .hero .box-container{
+        gap: 0;
+    }
+
+    .pricing .box-container{
+        flex-wrap: wrap-reverse;
+    }
+
+    
+}

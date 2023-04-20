@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Login</title>
+</head>
+<body>
+    <%- include('plugins/navbar') %>
+
+    <div class="login">
+        <div class="box-container">
+            <div class="header">
+                <h1>Login</h1>  
+                <a href="/">Back to home</a>
+            </div>
+            <form action="/login" method="post">
+                <div class="labelBox">
+                    <label for="email">Email</label>
+                    <input type="email" placeholder="Email" required name="email">
+                </div>                    
+                <div class="labelBox">
+                    <label for="password">Password</label>
+                    <input type="password" placeholder="password" required name="password">
+                </div>
+                <div class="forgotOrSignup">
+                    <a href="/forgot">Forgot password?</a>    
+                    <a href="/signup">Dont have an account?</a>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+    
+ 
+<%- include('plugins/footer') %>

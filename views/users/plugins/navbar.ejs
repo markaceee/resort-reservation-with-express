@@ -1,0 +1,95 @@
+<nav class="navbar">
+    <div class="leftBar">
+        <div class="image">
+            <img src="images/logo.png" alt="">
+            <div class="logoText">
+                <h1>Palm Bliss</h1>
+                <p>resort</p>
+            </div>
+        </div>
+        <div class="links">
+            <a href="/">Home</a>
+            <a href="/booking">Book now</a>
+            <a href="#">FAQ</a>
+            <a href="#">Contact Us</a>
+        </div>
+    </div>
+    <div class="rightBar">
+        <% if(isAuthenticated) { %>
+            <a href="/mybookings">My Booking</a>
+            <a class="myProfile">My Profile</a>
+            <a href="/logout">Logout</a>
+        <%} else { %>
+            <a href="/signup">Sign Up</a>
+            <a href="/login">Login</a>
+        <% } %>
+    </div>
+
+    <div class="menuBar bi bi-list"></div>
+</nav>
+
+<div class="menuBarActive">
+    <div class="closeBar bi bi-x-lg"></div>
+    <div class="box-container">
+        <div class="links">
+            <a href="/">Home</a>
+            <a href="/booking">Book now</a>
+            <a href="#">FAQ</a>
+            <a href="#">Contact Us</a>
+            <% if(isAuthenticated) { %>
+                <a href="/mybookings" class="btn">My Booking</a>
+                <a class="myProfile btn">My Profile</a>
+                <a href="/logout" class="btn">Logout</a>
+            <%} else { %>
+                <a href="/signup" class="btn">Sign Up</a>
+                <a href="/login" class="btn">Login</a>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<div class="modalProfile">
+    <div class="box">
+        <i class="modalCloseProfile bi bi-x-lg"></i>
+        <h1>Profile</h1>
+        <form action="/booking" method="post">
+            <div class="labelBox">
+                <label for="check-in">Check-in:</label>
+                <input id="check-in" placeholder="Check-in" name="checkIn">
+            </div>
+            <div class="labelBox">
+                <label for="check-out">Checkout:</label>
+                <input id="check-out" placeholder="Checkout" name="checkOut">
+            </div>
+            <div class="labelBox">
+                <label for="numOfPerson">Number of hours:</label>
+                <select id="numOfPerson" placeholder="hours" name="numOfHours">
+                    <option value="12">12</option>
+                    <option value="22">22</option>
+                  </select>
+            </div>
+            <div class="labelBox">
+                <label for="time-in">Time-in:</label>
+                <input id="time-in" placeholder="Timein" name="timeIn">
+            </div>
+            <div class="labelBox">
+                <label for="time-out">Timeout:</label>
+                <input id="time-out" placeholder="Timeout" name="timeOut">
+            </div>
+            <div class="labelBox">
+                <label for="numOfPerson">Number of person:</label>
+                <select id="numOfPerson" placeholder="Number of Person" name="numOfPerson">
+                    <option value="35">35</option>
+                    <option value="30">30</option>
+                    <option value="25">25</option>
+                    <option value="20">20</option>
+                    <option value="15">15 and below</option>
+                  </select>
+            </div>
+            <div class="total">
+                <p>Total: <i class="fa-solid fa-peso-sign"></i> 20, 000</p>
+            </div>
+            <button type="submit">Book now</button>
+        </form>
+    </div>
+</div>

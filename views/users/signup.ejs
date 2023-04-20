@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Signup</title>
+</head>
+<body>
+    <%- include('plugins/navbar') %>
+
+    <div class="register">
+        <div class="box-container">
+            <div class="header">
+                <h1>Sign up</h1>  
+                <a href="/">Back to home</a>
+            </div>
+            <form action="/signup" method="post">
+                <div class="labelBox">
+                    <label for="fName">First name</label>
+                    <input type="text" placeholder="First name" id="fName" required name="firstName">
+                </div>    
+                <div class="labelBox">
+                    <label for="lName">Last name</label>
+                    <input type="text" placeholder="Last name" id="lName" required name="lastName">
+                </div>                    
+                <div class="labelBox">
+                    <label for="contactNum">Contact number</label>
+                    <input type="text" placeholder="Email" id="contactNum" required name="contactNumber">
+                </div>
+                <div class="labelBox">
+                    <label for="address">Home address</label>
+                    <input type="text" placeholder="Your address" id="address" required name="address">
+                </div>
+                <div class="labelBox">
+                    <label for="email">Email</label>
+                    <input type="email" placeholder="Email" id="email" required name="email">
+                </div>
+                <div class="labelBox">
+                    <label for="password">Password</label>
+                    <input type="password" placeholder="Password" id="password" required name="password">
+                </div>
+                <div class="labelBox">
+                    <label for="confirmPassword">Confirm password</label>
+                    <input type="password" placeholder="Confirm password" id="confirmPassword" required name="confirmPassword">
+                </div>
+                <button type="submit">Sign up</button>
+            </form>
+        </div>
+    </div>
+
+
+    <%- include('plugins/footer') %>

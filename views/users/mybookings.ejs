@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <!-- STYLES -->
+        <link rel="stylesheet" href="css/styles.css">
+        
+        <!-- FONTAWESOME ICONS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+        <!-- BOOTSTRAP ICONS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+    
+        <!-- FLATPICKR -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+        <title>My Bookings</title>
+    </head>
+<body>      
+    <%- include('plugins/navbar') %>
+    <section class="myBookings">
+        <div class="titleHeader">
+            <h1>My Bookings</h1>
+            <p>If your status is 'approved', you can now pay via Gcash or Paypal by clicking the Pay buttton.</p>
+        </div>
+        <div class="box-container">
+            <div class="left">
+            
+            <% data.forEach( foundData => { %>
+                <div class="box">
+                    <% let checkIn = new Date(foundData.checkIn); %>
+                    <% let checkOut = new Date(foundData.checkOut); %>
+                    <% let options = { month: 'short', day: '2-digit', year: 'numeric' } %>
+                    
+                    <p><span class="bold">Check-in: </span><%= checkIn.toLocaleDateString('en-US', options) %></p>
+                    <p><span class="bold">Check-out: </span><%= checkOut.toLocaleDateString('en-US', options) %></p>
+                    <p><span class="bold">Time-in: </span><%= foundData.timeIn %></p>
+                    <p><span class="bold">Time-out: </span><%= foundData.timeOut %></p>
+                    <p><span class="bold">Number of hours: </span><%= foundData.numOfHours %></p>
+                    <p><span class="bold">Number of person: </span><%= foundData.numOfPerson %></p>
+                    <p class="status"><span class="bold">Status: </span> <span class="pending">pending</span></p>
+                    <p><span class="bold">Total: </span><i class="fa-solid fa-peso-sign"></i><%= foundData.total.toLocaleString() %></p>
+                    <img src="images/myBookings.png" alt="">
+                    <input type="hidden"  class="idNumber">
+                    <button class="showModal" data-check-in="<%= checkIn %>" data-check-out="<%= checkOut %>" data-time-in="<%= foundData.timeIn %>" data-time-out="<%= foundData.timeOut %>" data-num-of-hours="<%= foundData.numOfHours %>" data-num-of-person="<%= foundData.numOfPerson %>" data-total="<%= foundData.total %>" value="<%= foundData.reservationID %>">Edit</button>
+                </div>    
+            <% }) %>    
+            </div>
+        </div>
+    </section>
+
+    <div class="modal">
+        <div class="box">
+            <i class="modalClose bi bi-x-lg"></i>
+            
+            <h1>Booking summary</h1>
+            <form action="/booking" method="post" id="modalForm">
+                <div class="labelBox">
+                    <label for="check-in">Check-in:</label>
+                    <input id="check-in" placeholder="Check-in" name="checkIn">
+                </div>
+                <div class="labelBox">
+                    <label for="check-out">Checkout:</label>
+                    <input id="checkOut" placeholder="Checkout" name="checkOut">
+                </div>
+                <div class="labelBox">
+                    <label for="numOfPerson">Number of hours:</label>
+                    <select id="numOfPerson" placeholder="hours" name="numOfHours">
+                        <option value="12">12</option>
+                        <option value="22">22</option>
+                      </select>
+                </div>
+                <div class="labelBox">
+                    <label for="time-in">Time-in:</label>
+                    <input id="time-in" placeholder="Timein" name="timeIn">
+                </div>
+                <div class="labelBox">
+                    <label for="time-out">Timeout:</label>
+                    <input id="time-out" placeholder="Timeout" name="timeOut">
+                </div>
+                <div class="labelBox">
+                    <label for="numOfPerson">Number of person:</label>
+                    <select id="numOfPerson" placeholder="Number of Person" name="numOfPerson">
+                        <option value="35">35</option>
+                        <option value="30">30</option>
+                        <option value="25">25</option>
+                        <option value="20">20</option>
+                        <option value="15">15 and below</option>
+                      </select>
+                </div>
+                <div class="total">
+                    <p>Total: <i class="fa-solid fa-peso-sign"></i> 20, 000</p>
+                </div>
+                <button type="submit" class="testing"></button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- NAVBAR JS -->
+    <script src="js/navbar.js"></script>
+
+
+    <script>
+        let disableDates = ["2023-04-25", "2023-04-28"]
+
+
+        let checkIn = flatpickr("#check-in", {
+        altInput: true,
+        minDate: "today",
+        altFormat: "F j, Y",
+        dateFormat: "Y-m-d",
+        disable: disableDates,
+        onChange: function(selectedDates, dateStr, instance) {
+            // Update the minDate and maxDate options of the second input
+            checkOut.set("minDate", selectedDates[0]);
+            checkOut.set("maxDate", new Date(selectedDates[0].getTime() + 86400000)); // next day
+        }
+        });
+
+        let checkOut = flatpickr("#checkOut", {
+        altInput: true,
+        altFormat: "F j, Y",
+        dateFormat: "Y-m-d",
+        disable: disableDates,
+        minDate: "today",
+        maxDate: new Date(Date.now() + 86400000) // tomorrow
+        });
+
+        let timeIn = flatpickr("#time-in", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "h:i K",
+            time_24hr: false
+        });
+
+        let timeOut = flatpickr("#time-out", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "h:i K",
+            time_24hr: false
+        });
+    </script>
+
+
+    <script>
+        let showModal = document.querySelectorAll('.showModal')
+        let boxModal = document.querySelector('.modal')
+        let modalClose = document.querySelector('.modalClose')
+        let idNumber = document.querySelectorAll('.idNumber')
+        let modalForm = document.querySelector('#modalForm')
+
+        showModal.forEach(modal => {
+            modal.addEventListener("click", () => {
+                let checkIn = modal.dataset.checkIn;
+                let checkOut = modal.dataset.checkOut;
+                let timeIn = modal.dataset.timeIn;
+                let timeOut = modal.dataset.timeOut;
+                let numOfHours = modal.dataset.numOfHours;
+                let numOfPerson = modal.dataset.numOfPerson;
+                let total = modal.dataset.total;
+
+                // modalForm.total.querySelector('p').textContent = `Total: ₱${total}`;
+
+
+                
+                boxModal.classList.add('active');
+                // Populate modal form fields with data
+
+                modalForm.checkIn.value = checkIn;
+                modalForm.checkOut.value = checkOut;
+                modalForm.timeIn.value = timeIn;
+                modalForm.timeOut.value = timeOut;
+                modalForm.numOfHours.value = numOfHours;
+                modalForm.numOfPerson.value = numOfPerson;
+
+                    modalClose.addEventListener("click", () => {
+                        boxModal.classList.remove('active')
+                    })
+
+                    document.addEventListener('keydown', (event) => {
+                        if(event.keyCode === 27){
+                            boxModal.classList.remove('active')
+                        }
+                    })
+                })
+        })
+    </script>
+
+    <script>
+        let showModalB = document.querySelectorAll('.myProfile')
+        let boxModalB = document.querySelector('.modalProfile')
+        let modalCloseB = document.querySelector('.modalCloseProfile')
+        
+
+            showModalB.forEach(modal => {
+                modal.addEventListener("click", () => {
+                    boxModalB.classList.add('active');
+                    menuBarActive.classList.remove('active')
+
+                    modalCloseB.addEventListener("click", () => {
+                        boxModalB.classList.remove('active')
+                        
+                    })
+
+                    document.addEventListener('keydown', (event) => {
+                        if(event.keyCode === 27){
+                            boxModalB.classList.remove('active')
+                        }
+                    })
+                })
+            })
+    </script>
+</body>
+</html>

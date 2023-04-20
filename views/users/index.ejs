@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- FONTAWESOME ICONS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- BOOTSTRAP ICONS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+
+    <!-- STYLES -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- SWIPER -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    
+    <!-- FLATPICKR -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!-- LIGHT GALLERY -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-autoplay.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-comments.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-fullscreen.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-rotate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-share.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-thumbnail.min.css">
+
+    
+    <title>Palm Bliss</title>
+</head>
+<body>
+
+<%- include('plugins/navbar') %>
+    
+    <header class="hero">
+        <img src="images/hero.png" alt="">
+        <div class="box-container">
+            <div class="left">
+                <!-- <h1>Your Dream Vacation Starts Here</h1>
+                <p>Let us take care of the details and tailor your dream vacation, while you sit back, relax, and create unforgettable memories. </p> -->
+                <h1>Your Dream Vacation Starts Here</h1>
+                <p>Let us take care of the details and tailor your dream vacation, while you sit back, relax, and create unforgettable memories. </p>
+            </div>
+            <div class="right">
+                <h1>When would you like to stay?</h1>
+                <form action="/booking">
+                    <div class="labelBox">
+                        <label for="checkIn">Check in:</label>
+                        <input id="check-in" placeholder="Check-in">
+                    </div>
+                    <div class="labelBox">
+                        <label for="checkOut">Checkout:</label>
+                        <input  id="check-out" placeholder="Checkout">
+                    </div>
+                    <div class="labelBox">
+                        <label for="numOfGuests">No. of Guests</label>
+                        <select name="numOfGuests" id="numOfGuests">
+                            <option value="35">35</option>
+                            <option value="30">30</option>
+                            <option value="25">25</option>
+                            <option value="20">20 Below</option>
+                        </select>
+                    </div>
+                    <button>Book now</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <section class="gallery">
+        <div class="box">
+            <h1>Resort photos</h1>
+            <p>Immerse yourself in a visual paradise with our stunning resort photos.</p>
+        </div>
+        <div class="box-container">
+            <div class="right">
+                <div class="box">
+                    <img src="images/insta pic/SGT-06.jpg"  id="dynamic-gallery" alt="">
+                    <div class="blank">
+                        <h1>Click to view more</h1>
+                    </div>
+                </div>
+                <div class="box" id="dynamic-gallery">
+                    <img src="images/insta pic/SGT-07.jpg"  id="dynamic-gallery" alt="">
+                    <div class="blank">
+                        <h1>Click to view more</h1>
+                    </div>
+                </div>
+                <div class="box" id="dynamic-gallery">
+                    <img src="images/insta pic/SGT-57.jpg"  id="dynamic-gallery" alt="">
+                    <div class="blank">
+                        <h1>Click to view more</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="rooms">
+        <h1 class="title">Room types</h1>
+        <div class="box-container">
+            <div class="box senior">
+                <img src="images/rooms/Senior/Senior.jpg" alt="">
+                <div class="info">
+                    <h1>Common room 1</h1>
+                    <p>Have common comfort room</p>
+                </div>
+            </div>
+            <div class="box family">
+                <img src="images/rooms/Family/Family.jpg" alt="">
+                <div class="info">
+                    <h1>Common room 2</h1>
+                    <p>Have common comfort room</p>
+                </div>
+            </div>
+            <div class="box roomOne">
+                <img src="images/rooms/Room 1/Room 1.jpg" alt="">
+                <div class="info">
+                    <h1>Family room</h1>
+                    <p>Have own comfort room</p>
+                </div>
+            </div>
+            <div class="box roomTwo">
+                <img src="images/rooms/Room 2/Room 2.jpg" alt="">
+                <div class="info">
+                    <h1>Senior room</h1>
+                    <p>Have own comfort room</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="amenities">
+        <div class="info">  
+            <h1 class="title">Amenities</h1>
+            <p>Discover the Array of Amenities Available at Palm Bliss Resort</p>
+        </div>
+        <div class="box-container">
+            <div class="box">
+                <i class="bi bi-wifi"></i>
+                <p>Free WiFi</p>
+            </div>
+            <div class="box">
+                <i class="bi bi-snow"></i>
+                <p>Air-conditioned Rooms</p>
+            </div>
+            <div class="box">
+                <i class="bi bi-tv"></i>
+                <p>TV Sets (Bedroom) with Movie</p>
+            </div>
+            <div class="box">
+                <i class="bi bi-book-half"></i>
+                <p>Reading Books</p>
+            </div>
+            <div class="box">
+                <i class="bi bi-fire"></i>
+                <p>Burner Stove</p>
+            </div>
+            <div class="box">
+                <i class="bi bi-mic-fill"></i>
+                <p>Videoke</p>
+            </div>
+            <div class="box">
+                <i class="bi bi-8-circle-fill"></i>
+                <p>Billiards</p>
+            </div>
+            <div class="box">
+                <i class="bi bi-controller"></i>
+                <p>Arcade</p>
+            </div>
+        </div>
+        <p class="other"><strong>Other amenities:</strong> Natural Hot Spring Pool, Water Fountain and Waterfalls, Open Shower, BBQ Griller, Water Dispenser, Refrigerator, Microwave, and In-house Beverage Store</p>
+    </section>
+
+
+
+    <section class="map">   
+        <div class="box-container">
+            <div class="mapDetails">
+                <h1>You can locate us here <i class="bi bi-geo-alt-fill"></i></h1>
+                <p>Lot 30 Blk 24 Geneva Corner Pelican Lake Lakewood Subdivision Brgy. Lalakay Los Banos, Laguna</p>
+                <div class="btn">
+                    <a href="https://goo.gl/maps/9ezbGqzkjcpLCjCS7" target="_blank">View on Google Map </a>
+                </div>
+            </div>
+            <div class="mapLocation">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3868.326038893774!2d121.20535957585453!3d14.175672187337376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd6101a87ca4bf%3A0x501002cefd56f178!2sPalm%20Bliss%20Resort!5e0!3m2!1sen!2sph!4v1681485268544!5m2!1sen!2sph" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="reviews">
+        <div class="right">
+            <h1 class="sectionTitle">Testimonials</h1>
+            <p>We, Palm Bliss resort is Committed to Building Lasting Relationships with Our Guests</p>
+            <p class="secondP">Here's our guest, share their experience with us</p>
+        </div>
+        <div class="swiper review-slider">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide box">
+                    <div class="header">
+                        <div class="image">
+                            <img src="images/default_photo.jpg" alt="">
+                            <div class="info">
+                                <h1>John Doe</h1>
+                                <p class="reviewDate">a year ago</p>
+                            </div>
+                        </div>
+                        <div class="stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                    </div>
+                    <p class="reviewText">Lorem ipsum dolor sit amet, egestas neque, donec nullam ipsum faucibus non mattis in, lacus odio dignissim hac. Platea dictumst ea dictum congue. Ullamcorper nibh purus, id pede ipsum, gravida et sit ut tortor nunc.</p>
+                </div>
+                <div class="swiper-slide box">
+                    <div class="header">
+                        <div class="image">
+                            <img src="images/default_photo.jpg" alt="">
+                            <div class="info">
+                                <h1>John Doe</h1>
+                                <p class="reviewDate">a year ago</p>
+                            </div>
+                        </div>
+                        <div class="stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                    </div>
+                    <p class="reviewText">Lorem ipsum dolor sit amet, egestas neque, donec nullam ipsum faucibus non mattis in, lacus odio dignissim hac. Platea dictumst ea dictum congue. Ullamcorper nibh purus, id pede ipsum, gravida et sit ut tortor nunc.</p>
+                </div>
+                <div class="swiper-slide box">
+                    <div class="header">
+                        <div class="image">
+                            <img src="images/default_photo.jpg" alt="">
+                            <div class="info">
+                                <h1>John Doe</h1>
+                                <p class="reviewDate">a year ago</p>
+                            </div>
+                        </div>
+                        <div class="stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                    </div>
+                    <p class="reviewText">Lorem ipsum dolor sit amet, egestas neque, donec nullam ipsum faucibus non mattis in, lacus odio dignissim hac. Platea dictumst ea dictum congue. Ullamcorper nibh purus, id pede ipsum, gravida et sit ut tortor nunc.</p>
+                </div>
+                <div class="swiper-slide box">
+                    <div class="header">
+                        <div class="image">
+                            <img src="images/default_photo.jpg" alt="">
+                            <div class="info">
+                                <h1>John Doe</h1>
+                                <p class="reviewDate">a year ago</p>
+                            </div>
+                        </div>
+                        <div class="stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                    </div>
+                    <p class="reviewText">Lorem ipsum dolor sit amet, egestas neque, donec nullam ipsum faucibus non mattis in, lacus odio dignissim hac. Platea dictumst ea dictum congue. Ullamcorper nibh purus, id pede ipsum, gravida et sit ut tortor nunc.</p>
+                </div>
+                <div class="swiper-slide box">
+                    <div class="header">
+                        <div class="image">
+                            <img src="images/default_photo.jpg" alt="">
+                            <div class="info">
+                                <h1>John Doe</h1>
+                                <p class="reviewDate">a year ago</p>
+                            </div>
+                        </div>
+                        <div class="stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                    </div>
+                    <p class="reviewText">Lorem ipsum dolor sit amet, egestas neque, donec nullam ipsum faucibus non mattis in, lacus odio dignissim hac. Platea dictumst ea dictum congue. Ullamcorper nibh purus, id pede ipsum, gravida et sit ut tortor nunc.</p>
+                </div>
+                <div class="swiper-slide box">
+                    <div class="header">
+                        <div class="image">
+                            <img src="images/default_photo.jpg" alt="">
+                            <div class="info">
+                                <h1>John Doe</h1>
+                                <p class="reviewDate">a year ago</p>
+                            </div>
+                        </div>
+                        <div class="stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                    </div>
+                    <p class="reviewText">Lorem ipsum dolor sit amet, egestas neque, donec nullam ipsum faucibus non mattis in, lacus odio dignissim hac. Platea dictumst ea dictum congue. Ullamcorper nibh purus, id pede ipsum, gravida et sit ut tortor nunc.</p>
+                </div>
+            </div>
+        </div>
+    </section> 
+
+           <!-- footer starts -->
+           <section class="footer">
+            <div class="box-container">
+                <div class="box">
+                    <h3>quick links</h3>
+                    <a href=""><i class="fas fa-chevron-right"></i>home</a>
+                    <a href=""><i class="fas fa-chevron-right"></i>book now</a>
+                    <a href=""><i class="fas fa-chevron-right"></i>faq</a>
+                    <a href=""><i class="fas fa-chevron-right"></i>contact us</a>
+                    <a href=""><i class="fas fa-chevron-right"></i>sign up</a>
+                    <a href=""><i class="fas fa-chevron-right"></i>login</a>
+                </div>
+
+                <div class="box">
+                    <h3>our address</h3>
+                    <a href=""><i class="fas fa-map-marker-alt"></i>Lot 30 Blk 24 Geneva Corner Pelican Lake Lakewood Subdivision Brgy. Lalakay Los Banos, Laguna</a>
+                </div>
+
+                <div class="box">
+                    <h3>Contact info</h3>
+                    <a href=""><i class="fas fa-phone"></i>09164417213</a>
+                    <a href=""><i class="fas fa-phone"></i>09672487146</a>
+                    <a href=""><i class="fas fa-envelope"></i>jovs.arevir@gmail.com</a>
+                </div>
+
+                <div class="box">
+                    <h3>follow us</h3>
+                    <a href="https://www.facebook.com/profile.php?id=100068392042485" target="_blank"><i class="fab fa-facebook-f"></i>facebook</a>
+                </div>
+            </div>
+        </section> 
+
+    <script>
+        let disableDates = ["2023-04-25", "2023-04-28"]
+
+        let checkIn = flatpickr("#check-in", {
+            altInput: true,
+            minDate: "today",
+            altFormat: "F j, Y",
+            dateFormat: "Y-m-d",
+            disable: disableDates,
+            onChange: function(selectedDates, dateStr, instance) {
+                // Update the minDate option of the second input
+                checkOut.set("minDate", selectedDates[0]);
+            }
+        });
+
+        let checkOut = flatpickr("#check-out", {
+            altInput: true,
+            altFormat: "F j, Y",
+            dateFormat: "Y-m-d",
+            disable: disableDates
+        });
+    </script>
+
+    <!-- CUSTOM JS -->
+
+<!-- lightGallery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/autoplay/lg-autoplay.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/fullscreen/lg-fullscreen.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/rotate/lg-rotate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/share/lg-share.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/zoom/lg-zoom.min.js"></script>
+<script>
+// lightGallery(document.querySelector('.resortInfo .rightBox .wrapper'), {
+//     plugins: [lgThumbnail, lgZoom, lgFullscreen, lgShare, lgRotate, lgAutoplay],
+//     download: true,
+//     controls: true,
+//     thumbWidth: 100,
+//     thumbHeight: 100
+// });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script src="js/slidingInfinite.js"></script>
+<script src="js/gallery.js"></script>
+<script src="js/script.js"></script>
+
+
+<%- include('plugins/footer') %>

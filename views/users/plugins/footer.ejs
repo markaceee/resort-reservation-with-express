@@ -1,0 +1,31 @@
+
+
+    <!-- NAVBAR JS -->
+    <script src="js/navbar.js"></script>
+    <script>
+        let showModal = document.querySelectorAll('.myProfile')
+        let boxModal = document.querySelector('.modalProfile')
+        let modalClose = document.querySelector('.modalCloseProfile')
+        
+
+            showModal.forEach(modal => {
+                modal.addEventListener("click", () => {
+                    boxModal.classList.add('active');
+                    menuBarActive.classList.remove('active')
+
+                    modalClose.addEventListener("click", () => {
+                        boxModal.classList.remove('active')
+                        
+                    })
+
+                    document.addEventListener('keydown', (event) => {
+                        if(event.keyCode === 27){
+                            boxModal.classList.remove('active')
+                        }
+                    })
+                })
+            })
+
+    </script>
+</body>
+</html>

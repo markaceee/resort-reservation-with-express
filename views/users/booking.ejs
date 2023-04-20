@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- STYLES -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- FONTAWESOME ICONS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- BOOTSTRAP ICONS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+
+    <!-- FLATPICKR -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <style>
+        body{
+            background-color: var(--bg);
+        }
+    </style>
+    <title>Pricing list</title>
+</head>
+<body>
+    <%- include('plugins/navbar') %>
+
+    <section class="pricing">
+        <div class="titleHeader">
+            <h1>Month of May rates</h1>
+            <p>Secure Your Spot and Book Your Stay at Palm Bliss Resort!</p>
+        </div>
+        <div class="box-container">
+            <div class="left">
+                <div class="box">
+                   
+                    <div class="days">
+                        <p>WEEKEND / HOLIDAYS</p>
+                        <p>FRIDAY to SUNDAY</p>
+                    </div>
+                    <table>
+                    
+                        <tr>
+                            <th>Rates for 22 hours</th>
+                            <th>Number of Person</th>
+                        </tr>
+                   
+                        
+                        <% data.forEach(foundData => {  %>
+                            <% if(foundData.whatWeek === 'weekends' || foundData.whatWeek === 'holidays' && foundData.numOfHours === 22) {%>
+                        <tr>
+                            <td><i class="fa-solid fa-peso-sign"></i> <%= foundData.price.toLocaleString() %></td>
+                            <td><%= foundData.numOfPerson %></td>
+                        </tr>
+                            <% } %>
+                        <% }) %>
+                        
+                    </table>
+                </div>
+                <div class="box">
+                    <div class="days">
+                        <p>WEEKDAYS</p>
+                        <p>MONDAY to THURSDAY</p>
+                    </div>
+                    <table>
+                        <tr>
+                            <th>Rates for 22 hours</th>
+                            <th>Number of Person</th>
+                        </tr>
+                        <% data.forEach(foundData => {  %>
+                            <% if(foundData.whatWeek === 'weekdays' && foundData.numOfHours === 22) {%>
+                        <tr>
+                            <td><i class="fa-solid fa-peso-sign"></i> <%= foundData.price.toLocaleString() %></td>
+                            <td><%= foundData.numOfPerson %></td>
+                        </tr>
+                            <% } %>
+                        <% }) %>
+                    </table>
+                </div>
+                <div class="box">
+                    <div class="days">
+                        <p>WEEKDAYS</p>
+                        <p>MONDAY to THURSDAY</p>
+                    </div>
+                    <table>
+                        <tr>
+                            <th>Rates for 12 hours</th>
+                            <th>Number of Person</th>
+                        </tr>
+                        <% data.forEach(foundData => {  %>
+                            <% if(foundData.whatWeek === 'weekdays' && foundData.numOfHours === 12) {%>
+                        <tr>
+                            <td><i class="fa-solid fa-peso-sign"></i> <%= foundData.price.toLocaleString() %></td>
+                            <td><%= foundData.numOfPerson %></td>
+                        </tr>
+                            <% } %>
+                        <% }) %>
+                    </table>
+                </div>
+            </div>
+            <div class="right">
+                <div class="box">
+                    <h1>Booking summary</h1>
+                    <form action="/booking" method="post">
+                        <div class="labelBox">
+                            <label for="check-in">Check-in:</label>
+                            <input id="check-in" placeholder="Check-in" name="checkIn" required>
+                        </div>
+                        <div class="labelBox">
+                            <label for="check-out">Checkout:</label>
+                            <input id="checkOut" placeholder="Checkout" name="checkOut" required>
+                        </div>
+                        <div class="labelBox">
+                            <label for="numOfPerson">Number of hours:</label>
+                            <select id="numOfPerson" placeholder="hours" name="numOfHours" required>
+                                <option value="12">12</option>
+                                <option value="22">22</option>
+                              </select>
+                        </div>
+                        <div class="labelBox">
+                            <label for="time-in">Time-in:</label>
+                            <input id="time-in" placeholder="Timein" name="timeIn" required>
+                        </div>
+                        <div class="labelBox">
+                            <label for="time-out">Timeout:</label>
+                            <input id="time-out" placeholder="Timeout" name="timeOut" required>
+                        </div>
+                        <div class="labelBox">
+                            <label for="numOfPerson">Number of person:</label>
+                            <select id="numOfPerson" placeholder="Number of Person" name="numOfPerson" required>
+                                <option value="35">35</option>
+                                <option value="30">30</option>
+                                <option value="25">25</option>
+                                <option value="20">20</option>
+                                <option value="15">15 and below</option>
+                              </select>
+                        </div>
+                        <div class="total">
+                            <p>Total: <i class="fa-solid fa-peso-sign"></i> 20, 000</p>
+                        </div>
+                        <button type="submit">Book now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <script>
+        let disableDates = ["2023-04-25", "2023-04-28"]
+
+        // flatpickr("#check-in", {
+        //     minDate: "today",
+        //     onChange: function(selectedDates, dateStr, instance) {
+        //     var checkOutInput = document.getElementById("check-out");
+        //     var checkInDate = new Date(selectedDates[0]);
+        //     var minCheckOutDate = new Date(checkInDate.getTime() + 24 * 60 * 60 * 1000); // add 1 day
+        //     var maxCheckOutDate = new Date(checkInDate.getTime() + 2 * 24 * 60 * 60 * 1000); // add 2 days
+        //     instance.set("minDate", minCheckOutDate);
+        //     instance.set("maxDate", maxCheckOutDate);
+        //     checkOutInput.value = ""; // clear the checkout input when check-in date is changed
+        //     }
+        // });
+        // flatpickr("#check-out", {
+        //     minDate: "today"
+        // });
+
+
+
+        let checkIn = flatpickr("#check-in", {
+            altInput: true,
+            minDate: "today",
+            altFormat: "F j, Y",
+            dateFormat: "Y-m-d",
+            disable: disableDates,
+            onChange: function(selectedDates, dateStr, instance) {
+                // Update the minDate and maxDate options of the second input
+                checkOut.set("minDate", selectedDates[0]);
+                checkOut.set("maxDate", new Date(selectedDates[0].getTime() + 86400000)); // next day
+            }
+        });
+
+        let checkOut = flatpickr("#checkOut", {
+            altInput: true,
+            altFormat: "F j, Y",
+            dateFormat: "Y-m-d",
+            disable: disableDates,
+            minDate: "today",
+            maxDate: new Date(Date.now() + 86400000) // tomorrow
+        });
+
+
+        let timeIn = flatpickr("#time-in", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "h:i K",
+            time_24hr: false
+        });
+
+        let timeOut = flatpickr("#time-out", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "h:i K",
+            time_24hr: false
+        });
+    </script>
+    
+
+<%- include('plugins/footer') %>
