@@ -2,6 +2,7 @@ const mysql = require('mysql2')
 const bcrypt = require('bcrypt')
 const passport = require('passport')
 const nodemailer = require('nodemailer')
+const { response } = require('express')
 
 let isAuthenticated = false
 
@@ -14,13 +15,24 @@ let connection = mysql.createConnection({
     timezone: "+08:00"
 });
 
+let checkInDate;
+let priceList;
+
+connection.query(`SELECT * FROM reservation WHERE status IN ('approved') `,
+(err, rows) => { err ? console.log(err) : checkInDate = rows })
+
+connection.query(`SELECT * FROM pricelist`,
+(err, rows) => { err ? console.log(err) : priceList = rows })
+
 exports.index = (req, res) => {
-    req.isAuthenticated() ? res.render("users/index", {isAuthenticated: true}) : res.render("users/index", {isAuthenticated})
+    req.isAuthenticated() ? 
+    res.render("users/index", {isAuthenticated: true, toDisable: checkInDate}) :
+    res.render("users/index", {isAuthenticated, toDisable: checkInDate})
 }
 
 exports.logout = (req, res) => {
     req.logout(err => {
-        err ? connsole.log(err) : res.render("users/index", {isAuthenticated})
+        err ? connsole.log(err) : res.redirect("/login")
     })
 }
 
@@ -116,9 +128,9 @@ exports.booking = (req, res) => {
             if (err) console.log(err)
             else{
                 if (rows.length > 0){
-                    req.isAuthenticated() ? res.render("users/booking", 
-                        {isAuthenticated: true, data: rows}) :
-                        res.render("users/booking", {isAuthenticated, data: rows})
+                    req.isAuthenticated() ? 
+                        res.render("users/booking", {isAuthenticated: true, data: rows, toDisable: checkInDate}) :
+                        res.render("users/booking", {isAuthenticated, data: rows, toDisable: checkInDate})
                 }
             }
         });
@@ -127,7 +139,7 @@ exports.booking = (req, res) => {
 exports.bookingProcess = (req, res) => {
     if(req.isAuthenticated()){
         const {checkIn, checkOut, numOfHours, timeIn, timeOut, numOfPerson} = req.body;
-
+        const error = encodeURIComponent("Month rates not available!")
         // Convert the date string to a Date object
         const date = new Date(checkIn);
         const dayOfWeek = date.getDay();
@@ -143,21 +155,26 @@ exports.bookingProcess = (req, res) => {
             (err, data) => {
                 if(err) console.log(err)
                 else{
-                    data.forEach(foundData => {
-                        // total amount found
-                        if(foundData.month === monthName && foundData.whatWeek === weekString && foundData.numOfHours === parseInt(numOfHours) && foundData.numOfPerson === parseInt(numOfPerson)){
+                    const priceObject = data.find(price => price.month === monthName && price.whatWeek === weekString && price.numOfHours === parseInt(numOfHours) && price.numOfPerson === parseInt(numOfPerson))
+                    if(data.some(item => item.month.includes(monthName))){
+                        if(priceObject){
                             connection.query(`
-                                INSERT INTO reservation
-                                SET userID = ?, checkIn = ?, checkOut = ?, timeIn = ?, timeOut = ?, numOfHours = ?, numOfPerson = ?, total = ?`,
-                                [req.user.id, checkIn, checkOut, timeIn, timeOut, parseInt(numOfHours), parseInt(numOfPerson), foundData.price],
-                                (err, foundReservation) => {
-                                    if (err) { console.log(err)}
-                                    else{
-                                        res.redirect("/mybookings")
-                                    }
-                                })
+                            INSERT INTO reservation
+                            SET userID = ?, checkIn = ?, checkOut = ?, timeIn = ?, timeOut = ?, numOfHours = ?, numOfPerson = ?, total = ?`,
+                            [req.user.id, ...Object.values(req.body), priceObject.price],
+                            (err, foundReservation) => {
+                                if (err) { console.log(err)}
+                                else{
+                                    res.redirect("/mybookings")
+                                }
+                            })
+                        }else{
+                            res.redirect("/booking?error=" + error)
                         }
-                    })
+                    }else{
+                        res.redirect("/booking?error=" + error)
+                    }
+                    
                 }
             })
 
@@ -167,20 +184,87 @@ exports.bookingProcess = (req, res) => {
 }
 
 exports.mybookings = (req, res) => {
-    connection.query(`
+    if(req.isAuthenticated()){
+        connection.query(`
         SELECT *
-        FROM reservation`,
+        FROM reservation
+        WHERE userID = ? AND status IN ('pending', 'approved') `, [req.user.id],
         (err, rows) => {
-            if(err){console.log(err)}
-            else{
-                req.isAuthenticated() ? res.render("users/mybookings", {isAuthenticated: true, data: rows, reservationID: null}) : res.redirect("/login")
-            }
+            err ? console.log(err) : res.render("users/mybookings", {isAuthenticated: true, rows})
         })
+    }else{res.redirect("/login")}
 }
 
+exports.mybookingsEdit = (req, res) => {
+    if(req.isAuthenticated()){
+        const reservationID = req.params.id
+        connection.query(`
+            SELECT *
+            FROM reservation
+            WHERE reservationID = ?`, [reservationID],
+            (err, rows) => {
+                err ? console.log(err) :
+                rows.length ? res.render("users/mybookingsEdit", {isAuthenticated: true, rows, toDisable: checkInDate, priceList}) :
+                res.redirect("/mybookings")
+            })
+    }else res.redirect("/login")
+}
+
+exports.mybookingsDelete = (req, res) => {
+    let error = encodeURIComponent('booking cancelled');
+    if (req.isAuthenticated()){ 
+        connection.query(`
+        UPDATE reservation
+        SET status = ?
+        WHERE reservationID = ?`,
+        ["cancelled", req.params.id],
+        (err, foundUser) => {
+            err ? console.log(err) : res.redirect("/mybookings?error=" + error);
+        });
+    }else{
+        res.redirect("/");
+    }   
+}
+
+exports.mybookingsEditProcess = (req, res) => {
+    const error = encodeURIComponent("Month rates not available!")
+    const {checkIn, checkOut, numOfHours, timeIn, timeOut, numOfPerson} = req.body;
+
+    // Convert the date string to a Date object
+    const date = new Date(checkIn);
+    const dayOfWeek = date.getDay();
+    const monthName = date.toLocaleString('en-us', { month: 'long' });
+    let week = dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0;
+    let weekString = '';
+    week ? weekString = 'weekends' : weekString = 'weekdays';
+    let total = 0;
+
+    // Getting the total amount
+    connection.query(` 
+    SELECT * FROM pricelist`,
+    (err, data) => {
+        if(err) console.log(err)
+        else{
+            const priceObject = data.find(price => price.month === monthName && price.whatWeek === weekString && price.numOfHours === parseInt(numOfHours) && price.numOfPerson === parseInt(numOfPerson))
+            if(data.some(item => item.month.includes(monthName))){
+                if(priceObject){
+                    connection.query(`
+                    UPDATE reservation
+                    SET userID = ?, checkIn = ?, checkOut = ?, timeIn = ?, timeOut = ?, numOfHours = ?, numOfPerson = ?, total = ?
+                    WHERE reservationID = ?`,
+                    [req.user.id, checkIn, checkOut, timeIn, timeOut, parseInt(numOfHours), parseInt(numOfPerson), priceObject.price, req.params.id],
+                    (err, foundReservation) => {
+                        err ? console.log(err) : res.redirect("/mybookings")
+                    })
+                }else{
+                    res.redirect("/mybookings?error=" + error)
+                }
+            }else{res.redirect("/mybookings?error=" + error)}
+        }
+    })
+}
 
 exports.payment = (req, res) => {
     res.render("users/payment");
 }
-
 

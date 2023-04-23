@@ -355,7 +355,9 @@
         </section> 
 
     <script>
-        let disableDates = ["2023-04-25", "2023-04-28"]
+
+        const dataToString = <%- JSON.stringify(toDisable) %>;
+        const disableDates = dataToString.map(checkInDate => checkInDate.checkIn);
 
         let checkIn = flatpickr("#check-in", {
             altInput: true,

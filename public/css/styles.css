@@ -57,6 +57,8 @@ html{
     margin-left: .5rem;
 }
 
+
+
 /* MODAL START */
 .myProfile{
     cursor: pointer;
@@ -890,7 +892,7 @@ html{
     font-size: 1.5rem;
 }
 
-.pricing .box-container .right h1{
+.pricing .box-container .right h1, .myBookings .box-container .left h1{
     text-align: center;
     margin-bottom: 1.5rem;
 }
@@ -902,12 +904,14 @@ html{
     box-shadow: var(--box-shadow);
 }
 
-.pricing .box-container .right .box .labelBox{
+.pricing .box-container .right .box .labelBox, .myBookings .box-container .left .box .labelBox{
     margin-bottom: 1.5rem;
 }
 
 .pricing .box-container .right .box input,
-.pricing .box-container .right .box select{
+.pricing .box-container .right .box select,
+.myBookings .box-container .left .box input,
+.myBookings .box-container .left .box select{
     width: 100%;
     padding: 1.5rem 1rem;
     border-radius: .5rem;
@@ -916,15 +920,15 @@ html{
     margin-top: .5rem;
 } 
 
-.pricing .box-container .right .box select option{
+.pricing .box-container .right .box select option, .myBookings .box-container .left .box select option{
     font-size: 1.5rem;
 }
 
-.pricing .box-container .right .box .total{
+.pricing .box-container .right .box .total, .myBookings .box-container .left .box .total{
     text-align: right;
 }
 
-.pricing .box-container .right .box button{
+.pricing .box-container .right .box button, .myBookings .box-container .left .box button{
     width: 100%;
     padding: 1.5rem 1rem;
     margin-top: 1rem;
@@ -956,11 +960,16 @@ html{
     margin-bottom: 3rem;
 }
 
-.myBookings .box-container{
+.myBookings .box-container .left{
     background-color: var(--white);
     padding: 2rem;
     border-radius: .5rem;
     box-shadow: var(--box-shadow);
+}
+
+.myBookings .box-container .editBook{
+    width: 70rem;
+    margin: 0 auto;
 }
 
 .myBookings table{
@@ -969,7 +978,22 @@ html{
 
 .myBookings .tableData{
     padding: 2rem 1.5rem;
-} 
+}
+
+.myBookings td .btn{
+    padding: .5rem 2rem;
+    background-color: var(--colorThree);
+    border-radius: .5rem;
+    color: var(--white);
+    margin: 0 .5rem;
+}
+
+.myBookings td .cancel{
+    padding: .5rem;
+    background-color: var(--cancelled);
+    color: var(--white);
+    border-radius: .5rem;
+}
 
 
 
@@ -1058,7 +1082,8 @@ html{
         padding: 2rem;
     }
 
-    .hero .box-container .left h1, .hero .box-container .left p, .myBookings .box-container .left .box{
+    .hero .box-container .left h1, .hero .box-container .left p, .myBookings .box-container .left .box,
+    .myBookings .box-container .editBook{
         width: 100%;
     }
 

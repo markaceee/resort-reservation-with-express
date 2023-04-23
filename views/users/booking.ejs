@@ -104,18 +104,18 @@
             <div class="right">
                 <div class="box">
                     <h1>Booking summary</h1>
-                    <form action="/booking" method="post">
+                    <form action="/booking" method="post" class="form">
                         <div class="labelBox">
                             <label for="check-in">Check-in:</label>
-                            <input id="check-in" placeholder="Check-in" name="checkIn" required>
+                            <input id="check-in" placeholder="Check-in" name="checkIn" class="check-in" required>
                         </div>
                         <div class="labelBox">
                             <label for="check-out">Checkout:</label>
                             <input id="checkOut" placeholder="Checkout" name="checkOut" required>
                         </div>
                         <div class="labelBox">
-                            <label for="numOfPerson">Number of hours:</label>
-                            <select id="numOfPerson" placeholder="hours" name="numOfHours" required>
+                            <label for="numOfHours">Number of hours:</label>
+                            <select id="numOfHours" placeholder="hours" name="numOfHours" class="numOfHours" required>
                                 <option value="12">12</option>
                                 <option value="22">22</option>
                               </select>
@@ -130,7 +130,7 @@
                         </div>
                         <div class="labelBox">
                             <label for="numOfPerson">Number of person:</label>
-                            <select id="numOfPerson" placeholder="Number of Person" name="numOfPerson" required>
+                            <select class="numOfPerson" placeholder="Number of Person" name="numOfPerson" required>
                                 <option value="35">35</option>
                                 <option value="30">30</option>
                                 <option value="25">25</option>
@@ -139,7 +139,7 @@
                               </select>
                         </div>
                         <div class="total">
-                            <p>Total: <i class="fa-solid fa-peso-sign"></i> 20, 000</p>
+                            <p>Total: <i class="fa-solid fa-peso-sign"></i> <span class="totalPrice"></span></p>
                         </div>
                         <button type="submit">Book now</button>
                     </form>
@@ -148,28 +148,40 @@
         </div>
     </section>
 
-    
     <script>
-        let disableDates = ["2023-04-25", "2023-04-28"]
-
-        // flatpickr("#check-in", {
-        //     minDate: "today",
-        //     onChange: function(selectedDates, dateStr, instance) {
-        //     var checkOutInput = document.getElementById("check-out");
-        //     var checkInDate = new Date(selectedDates[0]);
-        //     var minCheckOutDate = new Date(checkInDate.getTime() + 24 * 60 * 60 * 1000); // add 1 day
-        //     var maxCheckOutDate = new Date(checkInDate.getTime() + 2 * 24 * 60 * 60 * 1000); // add 2 days
-        //     instance.set("minDate", minCheckOutDate);
-        //     instance.set("maxDate", maxCheckOutDate);
-        //     checkOutInput.value = ""; // clear the checkout input when check-in date is changed
-        //     }
-        // });
-        // flatpickr("#check-out", {
-        //     minDate: "today"
-        // });
+        const dataToString = <%- JSON.stringify(toDisable) %>;
+        const dataPriceList = <%- JSON.stringify(data) %>;
+        const disableDates = dataToString.map(checkInDate => checkInDate.checkIn);
+    </script>
 
 
+    <script>
+        const form = document.querySelector(".form");
+        const formCheckIn = document.querySelector('.check-in')
+        let formNumOfHours = document.querySelector('.numOfHours')
+        let formNumOfPerson = document.querySelector('.numOfPerson')
+        let totalPrice = document.querySelector('.total .totalPrice')
 
+        form.addEventListener("change", (event) => {
+
+            // Convert the date string to a Date object
+            const date = new Date(formCheckIn.value);
+            const dayOfWeek = date.getDay();
+            const monthName = date.toLocaleString('en-us', { month: 'long' });
+            let week = dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0;
+            let weekString = '';
+            week ? weekString = 'weekends' : weekString = 'weekdays';
+            let total = 0;
+
+            const priceObject = dataPriceList.find(price => price.month == monthName && price.whatWeek == weekString && price.numOfHours == parseInt(formNumOfHours.value) && price.numOfPerson == parseInt(formNumOfPerson.value))
+
+            priceObject ? totalPrice.textContent = priceObject.price.toLocaleString() : totalPrice.textContent = 'Rates not available!'
+        
+        });
+    </script>
+
+
+    <script>
         let checkIn = flatpickr("#check-in", {
             altInput: true,
             minDate: "today",

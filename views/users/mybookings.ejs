@@ -54,7 +54,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <% data.forEach( foundData => { %>
+                    <% rows.forEach( foundData => { %>
                         <tr>
                             <% let checkIn = new Date(foundData.checkIn); %>
                             <% let checkOut = new Date(foundData.checkOut); %>
@@ -65,7 +65,13 @@
                             <td class="tableData"><%= foundData.numOfPerson %></td>
                             <td class="tableData"><i class="fa-solid fa-peso-sign"></i><%= foundData.total.toLocaleString() %></td>
                             <td class="tableData"><span class="<%= foundData.status %>"><%= foundData.status %></span></td>
-                            <td> <a href="" class="btn">Edit</a> <a href="" class="btn">Pay</a></td>
+                            <td style="text-align: center;"> 
+                                <% if(foundData.status == 'pending'){ %> 
+                                    <a href="mybookings/edit/<%= foundData.reservationID %>" class="btn">Edit</a> 
+                                    <a href="mybookings/delete/<%= foundData.reservationID %>" class="cancel" ><i class="bi bi-trash-fill"></i></a> 
+                                <% } %>
+                                <% if(foundData.status == 'approved'){ %> <a href="" class="btn">Pay</a> <% } %>
+                            </td>
                         </tr>
                     <% }) %>    
                     </tbody>
@@ -81,9 +87,6 @@
                         </tr>
                     </tfoot>
                 </table>
-
-
-
             </div>
         </div>
     </section>
@@ -100,48 +103,6 @@
             } );
         } );
     </script>
-
-    <script>
-        let disableDates = ["2023-04-25", "2023-04-28"]
-
-
-        let checkIn = flatpickr("#check-in", {
-        altInput: true,
-        minDate: "today",
-        altFormat: "F j, Y",
-        dateFormat: "Y-m-d",
-        disable: disableDates,
-        onChange: function(selectedDates, dateStr, instance) {
-            // Update the minDate and maxDate options of the second input
-            checkOut.set("minDate", selectedDates[0]);
-            checkOut.set("maxDate", new Date(selectedDates[0].getTime() + 86400000)); // next day
-        }
-        });
-
-        let checkOut = flatpickr("#checkOut", {
-        altInput: true,
-        altFormat: "F j, Y",
-        dateFormat: "Y-m-d",
-        disable: disableDates,
-        minDate: "today",
-        maxDate: new Date(Date.now() + 86400000) // tomorrow
-        });
-
-        let timeIn = flatpickr("#time-in", {
-            enableTime: true,
-            noCalendar: true,
-            dateFormat: "h:i K",
-            time_24hr: false
-        });
-
-        let timeOut = flatpickr("#time-out", {
-            enableTime: true,
-            noCalendar: true,
-            dateFormat: "h:i K",
-            time_24hr: false
-        });
-    </script>
-
 
     <script>
         let showModalB = document.querySelectorAll('.myProfile')

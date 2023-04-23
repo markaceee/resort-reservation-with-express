@@ -19,6 +19,10 @@ router.post('/booking', userController.bookingProcess)
 
 
 router.get('/mybookings', userController.mybookings)
+router.get('/mybookings/edit/:id', userController.mybookingsEdit)
+router.get('/mybookings/delete/:id', userController.mybookingsDelete)
+router.post('/mybookings/edit/:id', userController.mybookingsEditProcess)
+
 
 
 
