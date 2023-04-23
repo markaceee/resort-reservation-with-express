@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <!-- STYLES -->
+        <link rel="stylesheet" href="/css/styles.css">
+        
+        <!-- FONTAWESOME ICONS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+        <!-- BOOTSTRAP ICONS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+    
+        <!-- FLATPICKR -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+        <!-- DATATABLE -->
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+        <script src="https://cdn.datatables.net/rowgroup/1.3.1/js/dataTables.rowGroup.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/rowgroup/1.3.1/css/rowGroup.dataTables.min.css">
+
+
+        <title>My Bookings</title>
+    </head>
+<body>      
+    <%- include('plugins/navbar') %>
+    <section class="myBookings">
+        <div class="titleHeader">
+            <h1>Edit Booking</h1>
+            <p>If your status is 'approved', you can now pay via Gcash or Paypal by clicking the Pay buttton.</p>
+        </div>
+        <div class="box-container">
+            <div class="left editBook">
+                <div class="box">
+                    <form action="/mybookings/edit/<%= rows[0].reservationID %>" method="post" class="form">
+                        <div class="labelBox">
+                            <label for="check-in">Check-in:</label>
+                            <input id="check-in" name="checkIn" value="<%= rows[0].checkIn %>" class="check-in">
+                        </div>
+                        <div class="labelBox">
+                            <label for="check-out">Checkout:</label>
+                            <input id="checkOut" name="checkOut" value="<%= rows[0].checkOut %>">
+                        </div>
+                        <div class="labelBox">
+                            <label for="time-in">Time-in:</label>
+                            <input id="time-in" name="timeIn" value="<%= rows[0].timeIn %>">
+                        </div>
+                        <div class="labelBox">
+                            <label for="time-out">Timeout:</label>
+                            <input id="time-out" name="timeOut" value="<%= rows[0].timeOut %>">
+                        </div>
+                        <div class="labelBox">
+                            <label for="numOfHours">Number of hours:</label>
+                            <select id="numOfHours" name="numOfHours" class="numOfHours">
+                                <option value="12" <% if (rows[0].numOfHours === 12) { %>selected<% } %>>12</option>
+                                <option value="22" <% if (rows[0].numOfHours === 22) { %>selected<% } %>>22</option>
+                            </select>
+                        </div>
+                        <div class="labelBox">
+                            <label for="numOfPerson">Number of person:</label>
+                            <select id="numOfPerson" name="numOfPerson" class="numOfPerson">
+                                <option value="35" <% if (rows[0].numOfPerson === '35') { %>selected<% } %>>35</option>
+                                <option value="30" <% if (rows[0].numOfPerson === '30') { %>selected<% } %>>30</option>
+                                <option value="25" <% if (rows[0].numOfPerson === '25') { %>selected<% } %>>25</option>
+                                <option value="20" <% if (rows[0].numOfPerson === '20') { %>selected<% } %>>20</option>
+                                <option value="15" <% if (rows[0].numOfPerson === '15') { %>selected<% } %>>15 and below</option>
+                                </select>
+                        </div>
+                        <p>Total: <i class="fa-solid fa-peso-sign"></i> <span class="totalPrice"><%= rows[0].total %></span></p>
+                        <p class="status" style="margin-top: 1rem;">Status: <span class="pending">pending</span></p>
+                        <button type="submit">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- NAVBAR JS -->
+    <script src="/js/navbar.js"></script>
+
+
+    <script>
+        const dataToString = <%- JSON.stringify(toDisable) %>;
+        const dataPriceList = <%- JSON.stringify(priceList) %>;
+        const disableDates = dataToString.map(checkInDate => checkInDate.checkIn);
+    </script>
+
+
+    <script>
+        const form = document.querySelector(".form");
+        const formCheckIn = document.querySelector('.check-in')
+        let formNumOfHours = document.querySelector('.numOfHours')
+        let formNumOfPerson = document.querySelector('.numOfPerson')
+        let totalPrice = document.querySelector('.totalPrice')
+
+        console.log(totalPrice)
+
+        form.addEventListener("change", (event) => {
+            // Convert the date string to a Date object
+            const date = new Date(formCheckIn.value);
+            console.log(date)
+            const dayOfWeek = date.getDay();
+            console.log(dayOfWeek)
+            const monthName = date.toLocaleString('en-us', { month: 'long' });
+            let week = dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0;
+            let weekString = '';
+            week ? weekString = 'weekends' : weekString = 'weekdays';
+            console.log(weekString)
+
+            const priceObject = dataPriceList.find(price => price.month == monthName && price.whatWeek == weekString && price.numOfHours == parseInt(formNumOfHours.value) && price.numOfPerson == parseInt(formNumOfPerson.value))
+
+            priceObject ? totalPrice.textContent = priceObject.price.toLocaleString() : totalPrice.textContent = 'Rates not available!'
+        
+        });
+    </script>
+
+    <script>
+
+        let checkIn = flatpickr("#check-in", {
+        altInput: true,
+        minDate: "today",
+        altFormat: "F j, Y",
+        dateFormat: "Y-m-d",
+        disable: disableDates,
+        // onChange: function(selectedDates, dateStr, instance) {
+        //     // Update the minDate and maxDate options of the second input
+        //     checkOut.set("minDate", selectedDates[0]);
+        //     checkOut.set("maxDate", new Date(selectedDates[0].getTime() + 86400000)); // next day
+        // }
+        });
+
+        let checkOut = flatpickr("#checkOut", {
+        altInput: true,
+        minDate: "today",
+        altFormat: "F j, Y",
+        dateFormat: "Y-m-d",
+        disable: disableDates
+        // minDate: "today",
+        // maxDate: new Date(Date.now() + 86400000) // tomorrow
+        });
+
+        let timeIn = flatpickr("#time-in", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "h:i K",
+            time_24hr: false
+        });
+
+        let timeOut = flatpickr("#time-out", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "h:i K",
+            time_24hr: false
+        });
+    </script>
+
+
+    <script>
+        let showModalB = document.querySelectorAll('.myProfile')
+        let boxModalB = document.querySelector('.modalProfile')
+        let modalCloseB = document.querySelector('.modalCloseProfile')
+        
+
+            showModalB.forEach(modal => {
+                modal.addEventListener("click", () => {
+                    boxModalB.classList.add('active');
+                    menuBarActive.classList.remove('active')
+
+                    modalCloseB.addEventListener("click", () => {
+                        boxModalB.classList.remove('active')
+                        
+                    })
+
+                    document.addEventListener('keydown', (event) => {
+                        if(event.keyCode === 27){
+                            boxModalB.classList.remove('active')
+                        }
+                    })
+                })
+            })
+    </script>
+</body>
+</html>
