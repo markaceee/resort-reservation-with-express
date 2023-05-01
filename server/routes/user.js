@@ -3,6 +3,7 @@ const router = express.Router()
 const userController = require('../controllers/userController')
 
 router.get("/", userController.index)
+router.get("/blank", userController.blank)
 
 router.get("/logout", userController.logout)
 router.get("/login", userController.login)
@@ -16,6 +17,12 @@ router.post("/signup", userController.signupProcess)
 router.get('/booking', userController.booking)
 router.post('/booking', userController.bookingProcess)
 
+router.get('/FAQ', userController.faq)
+
+router.get('/recover-account', userController.recover)
+router.post('/recover-account', userController.recoverProcess)
+router.get('/recover-password/:token', userController.recoverProcessWithToken)
+router.post('/recover-password/:token', userController.recoverProcessWithTokenProcess)
 
 
 router.get('/mybookings', userController.mybookings)
@@ -24,12 +31,12 @@ router.get('/mybookings/delete/:id', userController.mybookingsDelete)
 router.post('/mybookings/edit/:id', userController.mybookingsEditProcess)
 
 
+router.get('/contact', userController.contact)
+router.post('/contact', userController.contactProcess)
 
+router.get('/profile', userController.profile)
+router.post('/profile', userController.profileProcess)
 
 router.get('/mybookings/payment', userController.payment)
-
-
-
-
 
 module.exports = router;

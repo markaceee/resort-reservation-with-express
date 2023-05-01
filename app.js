@@ -33,7 +33,12 @@ passport.deserializeUser((user, cb) => {
 
 const routes = require('./server/routes/user')
 
+
 app.use("/", routes)
+
+app.all('*', (req, res) => {
+    res.status(404).send('<h1>404! Page not found</h1>');
+});
 
 app.listen(3000, () => {
     console.log("Listening to port 3000")

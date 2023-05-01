@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <title>Login</title>
+    <title>Recover Account</title>
 </head>
 <body>
     <%- include('plugins/navbar') %>
@@ -15,25 +15,18 @@
     <div class="login">
         <div class="box-container">
             <div class="header">
-                <h1>Login</h1>  
-                
-                
+                <h1>Recover Account</h1>  
                 <a href="/">Back to home</a>
             </div>
-            <form action="/login" method="post">
+            <form action="/recover-account" method="post">
                 <div class="labelBox">
                     <label for="email">Email</label>
                     <input type="email" placeholder="Email" required name="email">
                 </div>                    
-                <div class="labelBox">
-                    <label for="password">Password</label>
-                    <input type="password" placeholder="password" required name="password">
-                </div>
                 <div class="forgotOrSignup">
-                    <a href="/recover-account">Forgot password?</a>    
                     <a href="/signup">Dont have an account?</a>
                 </div>
-                <button type="submit">Login</button>
+                <button type="submit">Recover</button>
             </form>
         </div>
     </div>

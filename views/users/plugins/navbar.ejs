@@ -10,14 +10,14 @@
         <div class="links">
             <a href="/">Home</a>
             <a href="/booking">Book now</a>
-            <a href="#">FAQ</a>
-            <a href="#">Contact Us</a>
+            <a href="/FAQ">FAQ</a>
+            <a href="/contact">Contact Us</a>
         </div>
     </div>
     <div class="rightBar">
         <% if(isAuthenticated) { %>
             <a href="/mybookings">My Booking</a>
-            <a class="myProfile">My Profile</a>
+            <a href="/profile">My Profile</a>
             <a href="/logout">Logout</a>
         <%} else { %>
             <a href="/signup">Sign Up</a>
@@ -34,11 +34,11 @@
         <div class="links">
             <a href="/">Home</a>
             <a href="/booking">Book now</a>
-            <a href="#">FAQ</a>
-            <a href="#">Contact Us</a>
+            <a href="/FAQ">FAQ</a>
+            <a href="/contact">Contact Us</a>
             <% if(isAuthenticated) { %>
                 <a href="/mybookings" class="btn">My Booking</a>
-                <a class="myProfile btn">My Profile</a>
+                <a href="/profile" class="btn">My Profile</a>
                 <a href="/logout" class="btn">Logout</a>
             <%} else { %>
                 <a href="/signup" class="btn">Sign Up</a>
@@ -48,7 +48,7 @@
     </div>
 </div>
 
-<div class="modalProfile">
+<!-- <div class="modalProfile">
     <div class="box">
         <i class="modalCloseProfile bi bi-x-lg"></i>
         <h1>Profile</h1>
@@ -92,4 +92,4 @@
             <button type="submit">Book now</button>
         </form>
     </div>
-</div>
+</div> -->

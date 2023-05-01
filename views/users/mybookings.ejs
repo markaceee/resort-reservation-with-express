@@ -28,6 +28,9 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/rowgroup/1.3.1/css/rowGroup.dataTables.min.css">
 
+        <!-- SWEEETALERT -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
         <title>My Bookings</title>
     </head>
@@ -65,7 +68,7 @@
                             <td class="tableData"><%= foundData.numOfPerson %></td>
                             <td class="tableData"><i class="fa-solid fa-peso-sign"></i><%= foundData.total.toLocaleString() %></td>
                             <td class="tableData"><span class="<%= foundData.status %>"><%= foundData.status %></span></td>
-                            <td style="text-align: center;"> 
+                            <td style="display: flex; gap: 2rem; text-align: center;"> 
                                 <% if(foundData.status == 'pending'){ %> 
                                     <a href="mybookings/edit/<%= foundData.reservationID %>" class="btn">Edit</a> 
                                     <a href="mybookings/delete/<%= foundData.reservationID %>" class="cancel" ><i class="bi bi-trash-fill"></i></a> 
@@ -95,6 +98,9 @@
     <!-- NAVBAR JS -->
     <script src="js/navbar.js"></script>
 
+
+
+
     <!-- Datatable -->
     <script>
         $(document).ready(function() {
@@ -102,6 +108,30 @@
                 responsive: true
             } );
         } );
+    </script>
+
+    <script>
+        let success = '<%= success %>';
+        if(success.length > 0){
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Reserved successfully!',
+                showConfirmButton: false,
+                timer: 3000
+            })
+        }
+
+        let error = '<%= error %>';
+        if(error.length > 0){
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Reservation deleted!',
+                showConfirmButton: false,
+                timer: 3000
+            })
+        }
     </script>
 
     <script>

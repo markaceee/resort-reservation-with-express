@@ -58,8 +58,16 @@ html{
 }
 
 
-
 /* MODAL START */
+.swal2-popup.swal2-toast .swal2-title{
+    font-size: 1.5rem !important;
+}
+
+.swal-toast {
+    top: 5rem !important;
+    left: 200px !important;
+  }
+
 .myProfile{
     cursor: pointer;
 }
@@ -650,6 +658,7 @@ html{
     display: flex;
     justify-content: space-between;
     font-size: 1.5rem;
+    gap: 2rem;
     align-items: center;
     margin-bottom: 3rem;
 }
@@ -661,11 +670,11 @@ html{
     border-bottom: 1px solid var(--colorThree)
 }
 
-.login .box-container form .labelBox, .register .box-container form .labelBox{
+.login .box-container form .labelBox, .register .box-container form .labelBox, .contact .box-container form .labelBox{
     margin: 1rem 0;
 }
 
-.login .box-container form .labelBox input, .register .box-container form .labelBox input{
+.login .box-container form .labelBox input, .register .box-container form .labelBox input, .contact .box-container form .labelBox input{
     margin-top: .5rem;
     width: 100%;
     padding: 1.5rem 2rem;
@@ -675,12 +684,12 @@ html{
     border: 1.5px solid var(--black);
 }
 
-.login .box-container form .labelBox label, .register .box-container form .labelBox label{
+.login .box-container form .labelBox label, .register .box-container form .labelBox label, .contact .box-container form .labelBox label{
     font-size: 1.5rem;
     font-weight: 500;
 }
 
-.login .box-container form button, .register .box-container form button{
+.login .box-container form button, .register .box-container form button, .contact .box-container form button{
     padding: 1.5rem 2rem;
     color: var(--white);
     background: var(--colorThree);
@@ -1000,10 +1009,198 @@ html{
 /* --------------------------- MY BOOKING END ----------------------- */
 
 
+/* ------------------------------------- FAQ STARTS -------------------------------------*/
+.faq .questions, .faq .header{
+    text-align: center;
+    color: var(--white);
+    font-size: 2rem;
+}
+
+
+
+.faq{
+    padding: 10rem 17%;
+    font-size: 1.5rem;
+    background-image: url('../images/two.svg');
+    background-size: cover;
+}
+
+.faq .box-container{
+    color: var(--black);
+    margin: 2.5rem auto;
+    width: 80%;
+    background-color: #fff;
+    border-radius: 1rem;
+    box-shadow: var(--box-shadow);
+    padding: 3rem;
+}
+
+.faq .box-container h1{
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.faq .box-container .ask{
+    text-align: center;
+    font-size: 1.5rem;
+    border-bottom: 2rem;
+    margin-bottom: 3rem;
+}
+
+.faq .box-container .box{
+    border-bottom: 1px solid #dfdfdf;
+    padding: 2rem 1rem;
+    cursor: pointer;
+}
+
+.faq .box-container .box .question-box{
+    font-weight: 500;
+    font-size: 2rem;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.faq .box-container .box button{
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.faq .box-container .box .answer{
+    font-size: 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .5s ease;
+}
+
+.faq .box-container .box.active .answer{
+    
+    max-height: 300px;
+    animation: fade 1s ease-in-out;
+}
+
+.faq .box-container .box .btn .fa-minus{
+    display: none;
+}
+
+.faq .box-container .box.active .btn .fa-plus{
+    display: none; 
+}
+
+.faq .box-container .box.active .btn .fa-minus{
+    display: block;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+.faq-more-question {
+    padding: 0;
+}
+
+.faq-more-question .box-container{
+  
+    text-align-last: center;
+    font-size: 1.5rem;
+}
+
+.faq-more-question .box-container h3{
+    font-weight: 500;
+    margin-bottom: 2rem;
+}
+/* ------------------------------------- FAQ ENDS -------------------------------------*/
+
+/* BLANK */
+
+.blankPage{
+    height: calc(100vh - 83.40px);
+    background-image: url('../images/two.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 10rem 17%;
+}
+
+.blankPage .box-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.blankPage p{
+    font-size: 3.5rem;
+    font-weight: 600;
+    color: var(--white);
+}
+
+/* BLANK */
+
+/* CONTACT */
+
+.contact{
+    height:100%;
+    background-image: url('../images/two.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 10rem 17%;
+}
+.contact .header{
+    text-align: center;
+    color: var(--white);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.contact .box-container{
+    background-color: var(--white);
+    box-shadow: var(--box-shadow);
+    border-radius: .5rem;
+    display: flex;
+}
+
+
+.contact .box-container .image{
+    flex: 1 1 80rem;
+}
+
+.contact .box-container .image img{
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: .5rem;
+    border-bottom-left-radius: .5rem;
+}
+
+.contact form{
+    padding: 3rem;
+    width: 100%;
+}
+
+.contact form textarea{
+    margin-top: .5rem;
+    width: 100%;
+    padding: 1.5rem 2rem;
+    font-size: 1.5rem;
+    color: var(--black);
+    border-radius: .5rem;
+    border: 1.5px solid var(--black);
+}
 
 
 
 
+
+/* CONTACT */
 
 
 
@@ -1039,6 +1236,7 @@ html{
     .hero .box-container{
         gap: 0;
     }
+    
 
     .myBookings{
         height: 100vh;
@@ -1078,12 +1276,14 @@ html{
         font-size: 55%;
     }
 
-    section, .myBookings{
+    section, .myBookings, .contact, .faq{
         padding: 2rem;
     }
 
+
+
     .hero .box-container .left h1, .hero .box-container .left p, .myBookings .box-container .left .box,
-    .myBookings .box-container .editBook{
+    .myBookings .box-container .editBook, .contact, .faq .box-container{
         width: 100%;
     }
 
@@ -1091,13 +1291,19 @@ html{
         gap: 0;
     }
 
-    .pricing .box-container{
+    .pricing .box-container, .contact .box-container{
         flex-wrap: wrap-reverse;
     }
+
+    .contact .box-container img{
+        border-bottom-left-radius: .5rem;
+        border-bottom-right-radius: .5rem;
+    }
+
 }
 
 @media (max-width: 500px) {
-    .myBookings{
+    .myBookings, .contact, .register{
         height: 100%;
     }
 }
