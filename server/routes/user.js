@@ -24,8 +24,9 @@ router.post('/recover-account', userController.recoverProcess)
 router.get('/recover-password/:token', userController.recoverProcessWithToken)
 router.post('/recover-password/:token', userController.recoverProcessWithTokenProcess)
 
-
+router.get('/mybookings/reviews', userController.modal)
 router.get('/mybookings', userController.mybookings)
+router.post('/mybookings/reviews', userController.modalProcess)
 router.get('/mybookings/edit/:id', userController.mybookingsEdit)
 router.get('/mybookings/delete/:id', userController.mybookingsDelete)
 router.post('/mybookings/edit/:id', userController.mybookingsEditProcess)
@@ -37,6 +38,7 @@ router.post('/contact', userController.contactProcess)
 router.get('/profile', userController.profile)
 router.post('/profile', userController.profileProcess)
 
-router.get('/mybookings/payment', userController.payment)
+router.get('/mybookings/payment/:id', userController.payment)
+router.post('/mybookings/payment/:id', userController.paymentProcess)
 
 module.exports = router;

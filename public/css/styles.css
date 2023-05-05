@@ -8,6 +8,7 @@
     --yellow: #FFD028;
     --approved: rgb(51, 164, 51);
     --cancelled: rgb(182, 39, 39);
+    --checked-out: rgb(108, 101, 230);
     --white: #fff;
     --whiteOne: #F7FFFF;
     --bg: #EAECF2;
@@ -57,6 +58,27 @@ html{
     margin-left: .5rem;
 }
 
+.checked-out{
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    background-color: var(--checked-out);
+    color: var(--white);
+    margin-left: .5rem;
+}
+
+.swal2-container.swal2-center>.swal2-popup {
+    font-size: 1.5rem;
+}
+
+/* .swal2-popup .swal2-title {
+    font-size: 4rem;
+}
+
+.swal2-popup .swal2-html-container {
+    font-size: 2.5rem;
+} */
+
+
 
 /* MODAL START */
 .swal2-popup.swal2-toast .swal2-title{
@@ -72,24 +94,37 @@ html{
     cursor: pointer;
 }
 
-.modal, .modalProfile{
+.modal, .modalReview{
     position: fixed;
     z-index: 1000;
     width: 100%;
     height: 100%;
     top: 0;
     background-color: rgb(0, 0, 0, 0.5);
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     padding: 2rem;
 }
 
-.modal.active, .modalProfile.active{
+.modalReview .image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalReview .image img{
+    width: 15rem;
+    border-radius: 50%;
+}
+
+
+
+.modal.active, .modalReview.active{
     display: flex;
 }
 
-.modal .modalClose, .modalProfile .modalCloseProfile{
+.modal .modalClose, .modalReview .modalCloseReview{
     font-size: 2rem;
     position: absolute;
     right: 2rem;
@@ -97,13 +132,13 @@ html{
     cursor: pointer;
 }
 
-.modal .box h1, .modalProfile .box h1{
+.modal .box h1, .modalReview .box h1{
     text-align: center;
     margin-bottom: 1.5rem;
     margin-top: 1rem;
 }
 
-.modal .box, .modalProfile .box{
+.modal .box, .modalReview .box{
     position: relative;
     padding: 2rem;
     background-color: var(--white);
@@ -112,14 +147,15 @@ html{
     width: 50rem;
 }
 
-.modal .box .labelBox, .modalProfile .box .labelBox{
+.modal .box .labelBox, .modalReview .box .labelBox{
     margin-bottom: 1.5rem;
+    width: 100%;
 }
 
 .modal .box input,
 .modal .box select,
-.modalProfile .box input,
-.modalProfile .box select{
+.modalReview .box input,
+.modalReview .box select{
     width: 100%;
     padding: 1.5rem 1rem;
     border-radius: .5rem;
@@ -128,12 +164,12 @@ html{
     margin-top: .5rem;
 } 
 
-.modal .box.modal .box select option, .modalProfile .box.modal .box select option{
+.modal .box.modal .box select option, .modalReview .box.modal .box select option{
     font-size: 1.5rem;
 }
 
 
-.modal .box button, .modalProfile .box button{
+.modal .box button, .modalReview .box button{
     width: 100%;
     padding: 1.5rem 1rem;
     margin-top: 1rem;
@@ -959,8 +995,10 @@ html{
     font-size: 1.5rem;
     background-image: url('../images/two.svg');
     background-size: cover;
-    height: 100vh;
+    min-height: 100vh;
+
 }
+
 
 .myBookings .titleHeader{
     color: var(--white);
@@ -969,11 +1007,12 @@ html{
     margin-bottom: 3rem;
 }
 
-.myBookings .box-container .left{
+.myBookings .box-container .left, .myBookings .box-container .right{
     background-color: var(--white);
     padding: 2rem;
     border-radius: .5rem;
     box-shadow: var(--box-shadow);
+
 }
 
 .myBookings .box-container .editBook{
@@ -989,12 +1028,12 @@ html{
     padding: 2rem 1.5rem;
 }
 
+
 .myBookings td .btn{
-    padding: .5rem 2rem;
+    padding: .5rem 1rem;
     background-color: var(--colorThree);
     border-radius: .5rem;
     color: var(--white);
-    margin: 0 .5rem;
 }
 
 .myBookings td .cancel{
@@ -1004,7 +1043,9 @@ html{
     border-radius: .5rem;
 }
 
-
+.review{
+    cursor: pointer;
+}
 
 /* --------------------------- MY BOOKING END ----------------------- */
 
@@ -1123,7 +1164,7 @@ html{
 /* BLANK */
 
 .blankPage{
-    height: calc(100vh - 83.40px);
+    min-height: calc(100vh - 83.40px);
     background-image: url('../images/two.svg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -1148,7 +1189,7 @@ html{
 /* CONTACT */
 
 .contact{
-    height:100%;
+    min-height: 100vh;
     background-image: url('../images/two.svg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -1186,7 +1227,7 @@ html{
     width: 100%;
 }
 
-.contact form textarea{
+.contact form textarea, .modalReview form textarea{
     margin-top: .5rem;
     width: 100%;
     padding: 1.5rem 2rem;
@@ -1196,12 +1237,46 @@ html{
     border: 1.5px solid var(--black);
 }
 
-
-
-
-
 /* CONTACT */
 
+
+/* RATE */
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+/* RATE */
 
 
 

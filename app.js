@@ -3,9 +3,11 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const passport = require('passport')
+const fileUpload = require('express-fileupload');
 
 const app = express()
 
+app.use(fileUpload());
 app.use(express.static(__dirname + "/public"))
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true}))

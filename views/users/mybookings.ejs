@@ -39,7 +39,7 @@
     <section class="myBookings">
         <div class="titleHeader">
             <h1>My Bookings</h1>
-            <p>If your status is 'approved', you can now pay via Gcash or Paypal by clicking the Pay buttton.</p>
+            <p>If your status is 'approved', you can now pay via Gcash or BPI by clicking the Pay buttton.</p>
         </div>
         <div class="box-container">
             <div class="left">
@@ -49,9 +49,10 @@
                         <tr>
                             <th>Check-in</th>
                             <th>Checkout</th>
-                            <th>Number of hours</th>
-                            <th>Number of person</th>
+                            <th>No. of hours</th>
+                            <th>No. of person</th>
                             <th>Total</th>
+                            <th>Guest paid</th>
                             <th>Status</th>
                             <th>Edit / Pay</th>
                         </tr>
@@ -67,13 +68,15 @@
                             <td class="tableData"><%= foundData.numOfHours %></td>
                             <td class="tableData"><%= foundData.numOfPerson %></td>
                             <td class="tableData"><i class="fa-solid fa-peso-sign"></i><%= foundData.total.toLocaleString() %></td>
+                            <td>5,000 php</td>
                             <td class="tableData"><span class="<%= foundData.status %>"><%= foundData.status %></span></td>
                             <td style="display: flex; gap: 2rem; text-align: center;"> 
                                 <% if(foundData.status == 'pending'){ %> 
                                     <a href="mybookings/edit/<%= foundData.reservationID %>" class="btn">Edit</a> 
                                     <a href="mybookings/delete/<%= foundData.reservationID %>" class="cancel" ><i class="bi bi-trash-fill"></i></a> 
                                 <% } %>
-                                <% if(foundData.status == 'approved'){ %> <a href="" class="btn">Pay</a> <% } %>
+                                <% if(foundData.status == 'approved'){ %> <a href="/mybookings/payment/<%= foundData.reservationID %>" class="btn">Pay</a> <% } %>
+                                <% if(foundData.status == 'checked-out'){ %> <a href="/mybookings/reviews" class="review btn" id="review">Add Feedback</a> <% } %>
                             </td>
                         </tr>
                     <% }) %>    
@@ -82,10 +85,11 @@
                         <tr>
                             <th>Check-in</th>
                             <th>Checkout</th>
-                            <th>Number of hours</th>
-                            <th>Number of person</th>
+                            <th>No. of hours</th>
+                            <th>No. of person</th>
                             <th>Total</th>
                             <th>Status</th>
+                            <th>Guest paid</th>
                             <th>Edit / Pay</th>
                         </tr>
                     </tfoot>
@@ -93,6 +97,8 @@
             </div>
         </div>
     </section>
+
+
 
     
     <!-- NAVBAR JS -->
@@ -122,6 +128,30 @@
             })
         }
 
+        let successF = '<%= successF %>';
+        if(successF.length > 0){
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Feedback sent, Thank you!',
+                showConfirmButton: false,
+                timer: 3000
+            })
+        }
+
+        let successPayment = '<%= successPayment %>';
+        if(successPayment.length > 0){
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Payment sent!',
+                text: 'We will update your Guest paid once we confirm it. Thank you!',
+                showConfirmButton: false,
+                timer: 5000
+            })
+        }
+
+
         let error = '<%= error %>';
         if(error.length > 0){
             Swal.fire({
@@ -132,31 +162,22 @@
                 timer: 3000
             })
         }
-    </script>
 
-    <script>
-        let showModalB = document.querySelectorAll('.myProfile')
-        let boxModalB = document.querySelector('.modalProfile')
-        let modalCloseB = document.querySelector('.modalCloseProfile')
+        let fName = '<%= result[0].firstName %>';
+        let numOfReviews = <%- JSON.stringify(foundReviews) %>;
+        let statusCheckedOut = <%- JSON.stringify(rows) %>;
         
-
-            showModalB.forEach(modal => {
-                modal.addEventListener("click", () => {
-                    boxModalB.classList.add('active');
-                    menuBarActive.classList.remove('active')
-
-                    modalCloseB.addEventListener("click", () => {
-                        boxModalB.classList.remove('active')
-                        
-                    })
-
-                    document.addEventListener('keydown', (event) => {
-                        if(event.keyCode === 27){
-                            boxModalB.classList.remove('active')
-                        }
-                    })
-                })
+        const numOfCheckedOut = statusCheckedOut.filter(data => data.status === 'checked-out')
+        
+        if(numOfCheckedOut.length > numOfReviews.length){
+            Swal.fire({
+                iconHtml: '<img style="width: 100%" src="images/smileyy.png">',
+                title: `Hi ${fName.charAt(0).toUpperCase() + fName.slice(1)}! Please send us a Feedback.`,
+                text: 'You can now send us a Feedback by clicking the Add Feedback button',
             })
+        }
+
+
     </script>
 </body>
 </html>

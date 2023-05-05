@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- STYLES -->
+    <link rel="stylesheet" href="/css/styles.css">
+    
+    <!-- FONTAWESOME ICONS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- BOOTSTRAP ICONS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+
+    <!-- FLATPICKR -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
+    <!-- SWEEETALERT -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        body{
+            background-color: var(--bg);
+        }
+    </style>
+    <title>Payment</title>
+</head>
+<body>
+    <%- include('plugins/navbar') %>
+
+    <section class="pricing">
+        <div class="titleHeader">
+            <h1>Payment</h1>
+            <p>You can now pay via Gcash or BPI. Please upload your payment receipt to confirm. Thank you!</p>
+        </div>
+        <div class="box-container">
+            <div class="left">
+                <div class="box">
+                    <div class="days">
+                        <p style="font-weight: bold;">Gcash or BPI</p>
+                    </div>
+                    <img src="/images/payment.png" alt="" style="width: 100%;">
+                </div>
+                <div class="box">
+                    <div class="days">
+                        <p style="font-weight: bold;">Gcash Name</p>
+                    </div>
+                    <img src="/images/gcash-info.jpg" alt="" style="width: 100%;">
+                </div>
+            </div>
+            <div class="right">
+                <div class="box">
+                    <h1>Booking receipt</h1>
+                    <form action="/mybookings/payment/<%= rows[0].reservationID %>" method="post" class="form"  enctype="multipart/form-data">
+                        <% let checkIn = new Date(rows[0].checkIn); %>
+                        <% let checkOut = new Date(rows[0].checkOut); %>
+                        <% let options = { month: 'short', day: '2-digit', year: 'numeric' } %>
+                        <div class="labelBox">
+                            <label for="check-in">Check-in:</label>
+                            <input id="check-in" name="checkIn" value="<%= checkIn.toLocaleDateString('en-US', options) %>" class="check-in" disabled>
+                        </div>
+                        <div class="labelBox">
+                            <label for="check-out">Checkout:</label>
+                            <input id="checkOut" name="checkOut" value="<%= checkOut.toLocaleDateString('en-US', options) %>" disabled>
+                        </div>
+                        <div class="labelBox">
+                            <label for="time-in">Time-in:</label>
+                            <input id="time-in" name="timeIn" value="<%= rows[0].timeIn %>" disabled>
+                        </div>
+                        <div class="labelBox">
+                            <label for="time-out">Timeout:</label>
+                            <input id="time-out" name="timeOut" value="<%= rows[0].timeOut %>" disabled>
+                        </div>
+                        <div class="labelBox">
+                            <label for="numOfHours">Number of hours:</label>
+                            <select id="numOfHours" name="numOfHours" class="numOfHours" disabled>
+                                <option value="12" <% if (rows[0].numOfHours === 12) { %>selected<% } %>>12</option>
+                                <option value="22" <% if (rows[0].numOfHours === 22) { %>selected<% } %>>22</option>
+                            </select>
+                        </div>
+                        <div class="labelBox">
+                            <label for="numOfPerson">Number of person:</label>
+                            <select id="numOfPerson" name="numOfPerson" class="numOfPerson" disabled>
+                                <option value="35" <% if (rows[0].numOfPerson === '35') { %>selected<% } %>>35</option>
+                                <option value="30" <% if (rows[0].numOfPerson === '30') { %>selected<% } %>>30</option>
+                                <option value="25" <% if (rows[0].numOfPerson === '25') { %>selected<% } %>>25</option>
+                                <option value="20" <% if (rows[0].numOfPerson === '20') { %>selected<% } %>>20</option>
+                                <option value="15" <% if (rows[0].numOfPerson === '15') { %>selected<% } %>>15 and below</option>
+                            </select>
+                        </div>
+                        <div class="labelBox">
+                            <label for="paymentMethod">Payment method:</label>
+                            <select id="paymentMethod" name="paymentMethod" class="paymentMethod">
+                                <option value="Gcash">Gcash</option>
+                                <option value="BPI">BPI</option>
+                            </select>
+                        </div>
+                        <div class="labelBox">
+                            <label for="guestPaid">Guest paid</label>
+                            <input type="text" id="guestPaid" name="guestPaid" placeholder="0">
+                        </div>
+                        <div class="labelBox">
+                            <label for="receipt">Your receipt</label>
+                            <input type="file" id="receipt" name="receipt" >
+                        </div>
+                        <input type="hidden" name="needToPay" value="<%= rows[0].total %>">
+                        <input type="hidden" name="reservationID" value="<%= rows[0].reservationID %>">
+                        <p>Total: <i class="fa-solid fa-peso-sign"></i> <span class="totalPrice"><%= rows[0].total %></span></p>
+                        <p class="status" style="margin-top: 1rem;">Status: <span class="<%= rows[0].status %>"><%= rows[0].status %></span></p>
+                        <button type="submit">Update payment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<%- include('plugins/footer') %>

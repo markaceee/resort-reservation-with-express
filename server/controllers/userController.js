@@ -3,8 +3,7 @@ const bcrypt = require('bcrypt')
 const passport = require('passport')
 const nodemailer = require('nodemailer')
 const crypto = require('crypto')
-const { response } = require('express')
-const { isAsyncFunction } = require('util/types')
+
 
 let isAuthenticated = false
 
@@ -330,20 +329,85 @@ exports.bookingProcess = (req, res) => {
     }
 }
 
-exports.mybookings = (req, res) => {
-
+exports.modal = (req, res) => {
     let success = req.query.success;
     let error = req.query.error;
+    let successF = req.query.successF;
 
     if(req.isAuthenticated()){
         connection.query(`
         SELECT *
         FROM reservation
-        WHERE userID = ? AND status IN ('pending', 'approved') `, [req.user.id],
+        WHERE userID = ? AND status IN ('pending', 'approved', 'checked-out') `, [req.user.id],
         (err, rows) => {
-            err ? console.log(err) : res.render("users/mybookings", {isAuthenticated: true, rows, success, error})
+            connection.query(`SELECT * FROM user WHERE userID = ?`, [req.user.id], 
+                (err, result) => {
+                    connection.query(`SELECT * FROM reviews WHERE userID = ?`, [req.user.id],
+                        (err, foundReviews) => {
+                            err ? console.log(err) : res.render("users/modal", {
+                                isAuthenticated: true,
+                                rows, 
+                                success, 
+                                successF,
+                                error, 
+                                result,
+                                foundReviews
+                            })
+                        }
+                    )
+                }
+            )
+            
         })
     }else{res.redirect("/login")}
+}
+
+exports.mybookings = (req, res) => {
+
+    let success = req.query.success;
+    let error = req.query.error;
+    let successF = req.query.successF;
+    let successPayment = req.query.successPayment;
+
+    if(req.isAuthenticated()){
+        connection.query(`
+        SELECT *
+        FROM reservation
+        WHERE userID = ? AND status IN ('pending', 'approved', 'checked-out') `, [req.user.id],
+        (err, rows) => {
+            connection.query(`SELECT * FROM user WHERE userID = ?`, [req.user.id], 
+                (err, result) => {
+                    connection.query(`SELECT * FROM reviews WHERE userID = ?`, [req.user.id],
+                        (err, foundReviews) => {
+                            err ? console.log(err) : res.render("users/mybookings", {
+                                isAuthenticated: true,
+                                rows, 
+                                success, 
+                                successF,
+                                successPayment,
+                                error, 
+                                result,
+                                foundReviews
+                            })
+                        }
+                    )
+                }
+            )
+            
+        })
+    }else{res.redirect("/login")}
+}
+
+exports.modalProcess = (req, res) => {
+    const {rate, reviewsMessage, name} = req.body
+    const successF = encodeURIComponent('feedback sent!')
+
+    connection.query(`
+        INSERT INTO reviews
+        SET userID = ?, name = ?, stars = ?, reviewsMessage = ?`, [req.user.id, name, rate, reviewsMessage], 
+        (err, result) =>{
+            err ? console.log(err) : res.redirect('/mybookings?successF=' + successF)
+        })
 }
 
 exports.mybookingsEdit = (req, res) => {
@@ -502,10 +566,50 @@ exports.profileProcess = async (req, res) => {
 }
 
 exports.payment = (req, res) => {
-    res.render("users/payment");
+    let success = req.query.success;
+    const reservationID = req.params.id
+    connection.query(`
+        SELECT *
+        FROM reservation
+        WHERE reservationID = ?`, [reservationID], 
+        (err, rows) => {
+            if (err) console.log(err)
+            else{
+                if (rows.length > 0){
+                    req.isAuthenticated() ? 
+                        res.render("users/payment", {isAuthenticated: true, rows, success}) :
+                        res.redirect("/")
+                }else{
+                    res.redirect("/")
+                }
+            }
+        });
 }
 
 exports.paymentProcess = (req, res) => {
+    const successPayment = encodeURIComponent("payment sent!")
+    const file = req.files.receipt
+    const {guestPaid, needToPay, paymentMethod, reservationID} = req.body
+    const uploadPath = __dirname + '../../../public/images/receipt/'+ paymentMethod +'/' + file.name;
+    const receipt = '/images/'+ paymentMethod +'/' + file.name;
+
     
+    file.mv(uploadPath, (err) => {
+        if (err){
+            console.log(err);
+        }else{
+            connection.query(`
+            INSERT INTO payment
+            SET userID = ?, reservationID = ?, guestPaid = ?, needToPay = ?, paymentMethod = ?, receipt = ?`,
+            [req.user.id, reservationID, guestPaid, needToPay, paymentMethod, receipt],
+            (err, result) => {
+                if(err){
+                    console.log(err);
+                }else{
+                    res.redirect("/mybookings?successPayment=" + successPayment);
+                }
+            });
+        } 
+    });
 }
 
