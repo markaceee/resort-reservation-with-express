@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- FLATPICKR -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!-- LIGHT GALLERY -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-autoplay.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-comments.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-fullscreen.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-rotate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-share.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-thumbnail.min.css">
+
+
+    <title>Admin - Edit</title>
+    <%- include('plugins/header') %>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Payment</h1>
+
+                    <div class="row">
+                        <div class="col-lg-8 m-auto">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Payment information</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form class="form" action="/admin/payments/edit/<%= data[0].paymentID %>" method="post" enctype="multipart/form-data">
+                                        <table class="table">
+                                            <tbody>
+                                              <tr>
+                                                <th>Name</th>
+                                                <td class="text-capitalize" ><%= data[0].firstName %> <%= data[0].lastName %></td>
+                                              </tr>
+                                              <tr>
+                                                <th>Reservation ID</th>
+                                                <td><%= data[0].reservationID %></td>
+                                              </tr>
+                                              <tr>
+                                                <th >Guest paid</th>
+                                                <td>
+                                                    <input type="text" name="guestPaid" value="<%= data[0].guestPaid %>">
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <th>Total guest paid</th>
+                                                <td><%= data[0].totalGuestPaid %></td>
+                                              </tr>
+                                              <tr>
+                                                <th>Need to pay</th>
+                                                <td>₱<%= data[0].needToPay %></td>
+                                              </tr>
+                                              <tr>
+                                                <th>Payment method</th>
+                                                <td><%= data[0].paymentMethod %></td>
+                                              </tr>
+                                              <tr>
+                                                <th>Receipt</th>
+                                                <td>
+                                                    <div class="animated-thumbnails">
+                                                        <a href="<%= data[0].receipt %>">
+                                                            <img src="<%= data[0].receipt %>" alt="Receipt" style="width: 5rem;">
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        
+                                        <div class="row">
+                                            <div class="col">
+                                                <a href="/admin/payments" class="btn btn-primary mt-1 w-100" type="submit">Go back</a>
+                                            </div>
+                                            <div class="col">
+                                                <button class="btn btn-success mt-1 w-100" type="submit">Received Payment</button>
+                                            </div>
+                                            <div class="col">
+                                                <a class="btn btn-danger mt-1 w-100" type="submit">Didn't Received</a>
+                                            </div>
+                                        </div>
+                                        
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+            <!-- End of Main Content -->
+            <%- include('plugins/footer') %>
+
+    <!-- lightGallery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/autoplay/lg-autoplay.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/fullscreen/lg-fullscreen.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/rotate/lg-rotate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/share/lg-share.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/zoom/lg-zoom.min.js"></script>
+
+    <script>
+        lightGallery(document.querySelector('.animated-thumbnails'), {
+            thumbnail: true,
+        });
+    </script>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/admin/bootstrap/js/bootstrap.bundle.min.js"></script>
+ 
+    <script src="/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/admin/js/sb-admin-2.min.js"></script>
+
+    <script src="/adminScript.js"></script>
+
+</body>
+</html>

@@ -16,8 +16,6 @@
         <div class="box-container">
             <div class="header">
                 <h1>Login</h1>  
-                
-                
                 <a href="/">Back to home</a>
             </div>
             <form action="/login" method="post">
@@ -27,7 +25,11 @@
                 </div>                    
                 <div class="labelBox">
                     <label for="password">Password</label>
-                    <input type="password" placeholder="password" required name="password">
+                    <input type="password" placeholder="password" required name="password" id="password">
+                </div>
+                <div class="box">
+                    <input type="checkbox" id="showPassword">
+                    <label for="showPassword">Show password</label>
                 </div>
                 <div class="forgotOrSignup">
                     <a href="/recover-account">Forgot password?</a>    
@@ -45,7 +47,6 @@
 
     let error = '<%= error %>';
 
-
     if(error.length > 0){
         Swal.fire({
             position: 'top-end',
@@ -56,10 +57,15 @@
         })
     }
 
-
-
-
-
-
  </script>
+
+<script>
+    const passwordInput = document.querySelector("#password");
+    const showPasswordCheckbox = document.querySelector("#showPassword");
+
+    showPasswordCheckbox.addEventListener("change", function() {
+        const passwordFieldType = this.checked ? "text" : "password";
+        passwordInput.type = passwordFieldType;
+    });
+</script>
 <%- include('plugins/footer') %>

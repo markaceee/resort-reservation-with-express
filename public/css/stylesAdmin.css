@@ -1,0 +1,72 @@
+:root{
+    --black: #292420;
+    --colorOne: #A1E0E7;
+    --colorTwo: #70C3D5;
+    --colorThree: #32848F;
+    --yellow: #FFD028;
+    --approved: #33a433;
+    --cancelled: #b62727;
+    --checked-out: #6c65e6;
+    --white: #fff;
+    --whiteOne: #F7FFFF;
+    --bg: #EAECF2;
+    --box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+
+.weekdays{
+    padding: 0 .5rem;
+    border-radius: .5rem;
+    background-color: var(--colorThree);
+    color: var(--white);
+    margin-left: .5rem;
+}
+
+.weekends{
+    padding: 0 .5rem;
+    border-radius: .5rem;
+    background-color: var(--colorTwo);
+    color: var(--white);
+    margin-left: .5rem;
+}
+
+
+.pending{
+    padding: 0 .5rem;
+    border-radius: .5rem;
+    background-color: var(--yellow);
+    color: var(--white);
+    margin-left: .5rem;
+}
+
+.approved{
+    padding: 0 .5rem;
+    border-radius: .5rem;
+    background-color: var(--approved);
+    color: var(--white);
+    margin-left: .5rem;
+}
+
+.cancelled{
+    padding: 0 .5rem;
+    border-radius: .5rem;
+    background-color: var(--cancelled);
+    color: var(--white);
+    margin-left: .5rem;
+}
+
+.checked-out{
+    padding: 0 .5rem;
+    border-radius: .5rem;
+    background-color: var(--checked-out);
+    color: var(--white);
+    margin-left: .5rem;
+}
+
+
+.btnForAdmin{
+    padding: .4rem .7rem;
+    color: var(--white);
+    background-color: var(--colorThree);
+    border-radius: .5rem;
+}

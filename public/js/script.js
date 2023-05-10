@@ -3,7 +3,7 @@ let roomOne = document.querySelector('.rooms .box-container .roomOne')
 
 roomOne.addEventListener('click', () => {
   roomOneDynamicGallery.openGallery(0);
-});
+}); 
 
 const roomOneDynamicGallery = lightGallery(roomOne, {
   dynamic: true,
@@ -58,6 +58,7 @@ const roomTwoDynamicGallery = lightGallery(roomTwo, {
 
 let senior = document.querySelector('.rooms .box-container .senior')
 
+
 senior.addEventListener('click', () => {
   seniorDynamicGallery.openGallery(0);
 });
@@ -69,6 +70,7 @@ const seniorDynamicGallery = lightGallery(senior, {
   dynamicEl: [
       {
         src: 'images/rooms/Senior/Senior.jpg',
+        thumb: 'images/rooms/Senior/Senior.jpg'
       },
       {
         src: 'images/rooms/Senior/SGT-21.jpg',

@@ -40,7 +40,7 @@
             <input type="hidden" value="<%= result[0].firstName %> <%= result[0].lastName %>" name="name">
             <div class="labelBox" style="display: flex; justify-content: center; width: 100%;">
                 <div class="rate">
-                    <input type="radio" id="star1" name="rate" value="5" />
+                    <input type="radio" id="star1" name="rate" value="5" required/>
                     <label for="star1" title="text">1 star</label>
                     <input type="radio" id="star2" name="rate" value="4" />
                     <label for="star2" title="text">2 stars</label>
@@ -54,7 +54,7 @@
             </div>
             <div class="labelBox">
                 <label for="reviewsMessage" style="font-size: 2rem;">Your feedback:</label>
-                <textarea id="reviewsMessage" name="reviewsMessage" rows="6" cols="50" placeholder="message"></textarea>
+                <textarea id="reviewsMessage" name="reviewsMessage" rows="6" cols="50" placeholder="message" required></textarea>
             </div>
             <button type="submit">Submit</button>
         </form>

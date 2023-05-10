@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Admin - Users</title>
+    <%- include('plugins/header') %>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Users info</h1>
+                    <p class="mb-4">Lorem ipsum dolor sit amet, elit arcu, ipsum pretium porta tempor, condimentum fringilla torquent mauris, posuere per maecenas ac reprehenderit eget. Sollicitudin phasellus, impedit non nec ultricies pede, elit in nec est, natoque lacus neque est consectetuer, gravida facilisis.</p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Contact Number</th>
+                                            <th>Address</th>
+                                            <th>Email</th>
+                                            <th>Date Registred</th>
+                                            <th>Delete user</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <% data.forEach(row => { %>                                 
+                                        <tr>
+                                            <td style="text-transform: capitalize;"><a href="/admin/users/<%= row.userID %>"><%= row.firstName %> <%= row.lastName %></a></td>
+                                            <td><%= row.contactNumber %></td>
+                                            <td><%= row.address %></td>
+                                            <td><%= row.email %></td>
+                                            <% const date = new Date(row.dateRegistered); %>
+                                            <% const month = date.toLocaleString('default', { month: 'short' }); %>
+                                            <% const day = date.getDate(); %>
+                                            <% const year = date.getFullYear(); %>
+                                            <% const time = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}); %>
+                                            <% const formattedDate = `${month} ${day}, ${year}, ${time}`; %>
+                                            <td><%= formattedDate %></td>
+                                            <td><a href="/admin/users/delete/<%= row.userID %>" class="btn"><span class="cancelled">delete</span></a></td>
+                                        </tr>
+                                    <% }) %>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Contact Number</th>
+                                            <th>Address</th>
+                                            <th>Email</th>
+                                            <th>Date Registred</th>
+                                            <th>Delete user</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+          
+            <%- include('plugins/footer') %>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/admin/bootstrap/js/bootstrap.bundle.min.js"></script>
+ 
+    <script src="/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/admin/js/sb-admin-2.min.js"></script>
+
+    <script src="/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/admin/js/demo/datatables-demo.js"></script>
+
+
+    <script src="/adminScript.js"></script>
+
+</body>
+
+</html>

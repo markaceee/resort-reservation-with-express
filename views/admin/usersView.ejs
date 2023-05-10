@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- FLATPICKR -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <title>Admin - Users</title>
+    <%- include('plugins/header') %>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">User information</h1>
+
+                    <div class="row">
+                        <div class="col-lg-8 m-auto">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary text-capitalize"><%= data[0].firstName %>'s Info</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form class="form">
+                                        <div class="form-floating mb-2">
+                                            <input type="hidden" name="firstName" value="<%= data[0].firstName %>">
+                                            <input type="hidden" name="lastName" value="<%= data[0].lastName %>">
+                                            <input style="text-transform: capitalize;" class="form-control" id="name" name="name" value="<%= data[0].firstName %> <%= data[0].lastName %>" disabled>
+                                            <label for="name">Full name</label>
+                                        </div>
+                                        <div class="form-floating mb-2">
+                                            <input class="form-control" id="contactNumber" name="contactNumber" value="<%= data[0].contactNumber %>">
+                                            <label for="contactNumber">Contact number</label>
+                                        </div>
+                                        <div class="form-floating mb-2">
+                                            <input class="form-control" id="address" name="address" value="<%= data[0].address %>">
+                                            <label for="address">Address</label>
+                                        </div>
+                                        <div class="form-floating mb-2">
+                                            <input class="form-control" id="email" name="email" value="<%= data[0].email %>">
+                                            <label for="email">Email</label>
+                                        </div>
+                                        <div class="form-floating mb-2">
+                                            <% const date = new Date(data[0].dateRegistered); %>
+                                            <% const month = date.toLocaleString('default', { month: 'short' }); %>
+                                            <% const day = date.getDate(); %>
+                                            <% const year = date.getFullYear(); %>
+                                            <% const formattedDate = `${month} ${day}, ${year}`; %>
+                                            <input class="form-control" id="dateRegistered" name="dateRegistered" value="<%= formattedDate %>">
+                                            <label for="dateRegistered">Date registered</label>
+                                        </div>
+                                        <a href="/admin/users" class="btn btn-primary mt-1 w-100">Go back</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+            <!-- End of Main Content -->
+            <%- include('plugins/footer') %>
+    
+
+
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/admin/bootstrap/js/bootstrap.bundle.min.js"></script>
+ 
+    <script src="/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/admin/js/sb-admin-2.min.js"></script>
+
+    <script src="/adminScript.js"></script>
+
+</body>
+</html>

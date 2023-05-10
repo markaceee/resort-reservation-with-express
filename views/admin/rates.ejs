@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Admin - Price List</title>
+    <%- include('plugins/header') %>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Rates per Month</h1>
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Add rates</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form action="/admin/rates" method="post" enctype="multipart/form-data">
+                                        <div class="form-floating mb-2">
+                                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="month" required>
+                                              <option selected>select month</option>
+                                              <option value="January">January</option>
+                                              <option value="February">February</option>
+                                              <option value="March">March</option>
+                                              <option value="April">April</option>
+                                              <option value="May">May</option>
+                                              <option value="June">June</option>
+                                              <option value="July">July</option>
+                                              <option value="August">August</option>
+                                              <option value="September">September</option>
+                                              <option value="October">October</option>
+                                              <option value="November">November</option>
+                                              <option value="December">December</option>
+                                            </select>
+                                            <label for="floatingSelect">Month</label>
+                                        </div>
+                                        <div class="form-floating mb-2">
+                                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="whatWeek" required>
+                                                <option selected>select week</option>
+                                              <option value="weekdays">Weekday</option>
+                                              <option value="weekends">Weekend</option>
+                                              <option value="holiday">Holiday</option>
+                                            </select>
+                                            <label for="floatingSelect">What week</label>
+                                        </div>
+                                        <div class="form-floating mb-2">
+                                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="numOfHours" required>
+                                                <option selected>select hours</option>
+                                              <option value="12">12hr</option>
+                                              <option value="22">22hr</option>
+                                            </select>
+                                            <label for="floatingSelect">Number of hours</label>
+                                        </div>
+                                        <div class="form-floating mb-2">
+                                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="numOfPerson" required>
+                                                <option selected>select number of person</option>
+                                              <option value="35">35</option>
+                                              <option value="30">30</option>
+                                              <option value="25">25</option>
+                                              <option value="20">20</option>
+                                              <option value="15">15 Below</option>
+                                            </select>
+                                            <label for="floatingSelect">Number of persons</label>
+                                        </div>
+                                        <div class="form-floating mb-2">
+                                            <input class="form-control" id="price" name="price" required>
+                                            <label for="price">Price</label>
+                                        </div>
+                                        <button class="btn btn-primary mt-4 w-100" type="submit">Add rate</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">List of Rates</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Month</th>
+                                                    <th>What week</th>
+                                                    <th>No. of hours</th>
+                                                    <th>No. of persons</th>
+                                                    <th>Price</th>
+                                                    <th>Delete rate</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <% result.forEach(data => { %>
+                                                <tr>
+                                                    <td><%= data.month %></td>
+                                                    <td> <span class="<%= data.whatWeek %>"><%= data.whatWeek %></span></td>
+                                                    <td><%= data.numOfHours %></td>
+                                                    <td><%= data.numOfPerson %></td>
+                                                    <td>₱<%= data.price %></td>
+                                                    <td><a href="/admin/rates/<%= data.priceListID %>" class="cancelled">delete</a></td>
+                                                </tr>
+                                            <% }) %>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Month</th>
+                                                    <th>What week</th>
+                                                    <th>No. of hours</th>
+                                                    <th>No. of persons</th>
+                                                    <th>Price</th>
+                                                    <th>Delete rate</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <!-- End of Main Content -->
+            <%- include('plugins/footer') %>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/admin/bootstrap/js/bootstrap.bundle.min.js"></script>
+ 
+    <script src="/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/admin/js/sb-admin-2.min.js"></script>
+
+    <script src="/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/admin/js/demo/datatables-demo.js"></script>
+
+
+    <script src="/adminScript.js"></script>
+
+</body>
+
+</html>

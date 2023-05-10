@@ -27,8 +27,8 @@ connection.query(`SELECT * FROM pricelist`,
 
 
 
-exports.index = (req, res) => {
-    req.isAuthenticated() ? 
+exports.index = (req, res) => {    
+    (req.isAuthenticated() && req.user.role === 1) ? 
     res.render("users/index", {isAuthenticated: true, toDisable: checkInDate}) :
     res.render("users/index", {isAuthenticated, toDisable: checkInDate})
 }
@@ -44,7 +44,7 @@ exports.blank = (req, res) => {
 }
 
 exports.faq = (req, res) => {
-    req.isAuthenticated() ? 
+    (req.isAuthenticated() && req.user.role === 1) ? 
     res.render("users/faq", {isAuthenticated: true}) :
     res.render("users/faq", {isAuthenticated})
 }
@@ -52,7 +52,7 @@ exports.faq = (req, res) => {
 exports.recover = (req, res) => {
     let error = req.query.error;
     let success = req.query.success;
-    req.isAuthenticated() ? 
+    (req.isAuthenticated() && req.user.role === 1) ? 
     res.redirect("/") :
     res.render("users/recover", {isAuthenticated, error, success})
 }
@@ -176,8 +176,9 @@ exports.logout = (req, res) => {
 exports.login = (req, res) => {
     let error = req.query.error;
     let success = req.query.success;
-    req.isAuthenticated() ?
-        res.render("users/index", {isAuthenticated: true, error}) : 
+
+    (req.isAuthenticated() && req.user.role === 1) ?
+        res.redirect("/") : 
         res.render("users/login", {isAuthenticated, error, success})
 }
 
@@ -195,7 +196,7 @@ exports.loginProcess = (req, res) => {
                 if(foundEmail.length > 0){
                     const isMatch = await bcrypt.compare(password, foundEmail[0].password)
                     if(isMatch){
-                        req.login({id: foundEmail[0].userID, email: email}, (err) => {
+                        req.login({id: foundEmail[0].userID, email: email, role: 1}, (err) => {
                             if (err) console.log(err)
                             else{
                                 passport.authenticate("local")(req, res, () => {
@@ -368,7 +369,6 @@ exports.mybookings = (req, res) => {
     let error = req.query.error;
     let successF = req.query.successF;
     let successPayment = req.query.successPayment;
-
     if(req.isAuthenticated()){
         connection.query(`
         SELECT *
@@ -379,15 +379,19 @@ exports.mybookings = (req, res) => {
                 (err, result) => {
                     connection.query(`SELECT * FROM reviews WHERE userID = ?`, [req.user.id],
                         (err, foundReviews) => {
-                            err ? console.log(err) : res.render("users/mybookings", {
-                                isAuthenticated: true,
-                                rows, 
-                                success, 
-                                successF,
-                                successPayment,
-                                error, 
-                                result,
-                                foundReviews
+                            connection.query(`SELECT * FROM payment WHERE userID = ?`, [req.user.id],
+                            (err, totalGuestPaid) => {
+                                err ? console.log(err) : res.render("users/mybookings", {
+                                    isAuthenticated: true,
+                                    rows, 
+                                    success, 
+                                    successF,
+                                    successPayment,
+                                    error, 
+                                    result,
+                                    foundReviews,
+                                    totalGuestPaid
+                                })
                             })
                         }
                     )
@@ -591,7 +595,7 @@ exports.paymentProcess = (req, res) => {
     const file = req.files.receipt
     const {guestPaid, needToPay, paymentMethod, reservationID} = req.body
     const uploadPath = __dirname + '../../../public/images/receipt/'+ paymentMethod +'/' + file.name;
-    const receipt = '/images/'+ paymentMethod +'/' + file.name;
+    const receipt = '/images/receipt/'+ paymentMethod +'/' + file.name;
 
     
     file.mv(uploadPath, (err) => {

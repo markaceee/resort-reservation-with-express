@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- LIGHT GALLERY -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-autoplay.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-comments.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-fullscreen.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-rotate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-share.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-thumbnail.min.css">
+
+    <title>Admin - Payment</title>
+    <%- include('plugins/header') %>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Payments</h1>
+                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                        For more information about DataTables, please visit the <a target="_blank"
+                            href="https://datatables.net">official DataTables documentation</a>.</p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>ID</th>
+                                            <th>Guest paid</th>
+                                            <th>Total</th>
+                                            <th>Need to pay</th>
+                                            <th>Payment method</th>
+                                            <th>Receipt</th>
+                                            <th>Status</th>
+                                            <th>Edit booking</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <% data.forEach(row => { %>
+                                        <tr>
+                                            <td style="text-transform: capitalize;"><a href="/admin/users/<%= row.userID %>"><%= row.firstName %> <%= row.lastName %></a></td>
+                                            <td><a href="/admin/bookings/edit/<%= row.reservationID %>"><%= row.reservationID %></a></td>
+                                            <td>₱<%= row.guestPaid %></td>
+                                            <td>₱<%= row.totalGuestPaid %></td>
+                                            <td>₱<%= row.needToPay %></td>
+                                            <td><%= row.paymentMethod %></td>
+                                            <td>
+                                                <div class="animated-thumbnails">
+                                                    <a href="<%= row.receipt %>">
+                                                        <img src="<%= row.receipt %>" alt="Receipt" style="width: 5rem;">
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td><span class="<%= row.status %>"><%= row.status %></span></td>
+                                            <td style="text-align: center;"><a href="/admin/payments/edit/<%= row.paymentID %>" class="btnForAdmin">Edit</a></td>
+                                        </tr>
+                                    <% })%>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>ID</th>
+                                            <th>Guest paid</th>
+                                            <th>Total</th>
+                                            <th>Need to pay</th>
+                                            <th>Payment method</th>
+                                            <th>Receipt</th>
+                                            <th>Status</th>
+                                            <th>Edit booking</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <%- include('plugins/footer') %>
+    
+    
+    <!-- lightGallery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/autoplay/lg-autoplay.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/fullscreen/lg-fullscreen.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/rotate/lg-rotate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/share/lg-share.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/zoom/lg-zoom.min.js"></script>
+
+    <script>
+        let receipts = document.querySelectorAll('.animated-thumbnails')
+
+        receipts.forEach( receipt => {
+            lightGallery(receipt, {
+                thumbnail: true,
+            });
+        })
+    </script>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/admin/bootstrap/js/bootstrap.bundle.min.js"></script>
+ 
+    <script src="/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/admin/js/sb-admin-2.min.js"></script>
+
+    <script src="/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/admin/js/demo/datatables-demo.js"></script>
+
+
+    <script src="/adminScript.js"></script>
+
+</body>
+
+</html>

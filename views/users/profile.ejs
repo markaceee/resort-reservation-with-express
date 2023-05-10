@@ -23,14 +23,16 @@
                 <h1>My Profile</h1>  
             </div>
             <form action="/profile" method="post">
-                <div class="labelBox">
-                    <label for="fName">First name</label>
-                    <input type="text" placeholder=" Your first name" id="fName"  name="firstName" value="<%= data[0].firstName %>" required>
-                </div>    
-                <div class="labelBox">
-                    <label for="lName">Last name</label>
-                    <input type="text" placeholder="Your last name" id="lName"  name="lastName" value="<%= data[0].lastName %>" required>
-                </div>                    
+                <div class="name">
+                    <div class="labelBox">
+                        <label for="fName">First name</label>
+                        <input type="text" placeholder=" Your first name" id="fName"  name="firstName" value="<%= data[0].firstName %>" required>
+                    </div>    
+                    <div class="labelBox">
+                        <label for="lName">Last name</label>
+                        <input type="text" placeholder="Your last name" id="lName"  name="lastName" value="<%= data[0].lastName %>" required>
+                    </div>    
+                </div>  
                 <div class="labelBox">
                     <label for="contactNum">Contact number</label>
                     <input type="text" placeholder="Your contact number" id="contactNum"  name="contactNumber" value="<%= data[0].contactNumber %>" required>

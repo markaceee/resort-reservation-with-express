@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- FLATPICKR -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <title>Admin - Edit</title>
+    <%- include('plugins/header') %>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Edit Reservation</h1>
+
+                    <div class="row">
+                        <div class="col-lg-8 m-auto">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Reservation Info</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form class="form" action="/admin/bookings/edit/<%= data[0].reservationID %>" method="post" enctype="multipart/form-data">
+                                        <div class="form-floating mb-2">
+                                            <input type="hidden" name="userID" value="<%= data[0].userID %>">
+                                            <input type="hidden" name="firstName" value="<%= data[0].firstName %>">
+                                            <input type="hidden" name="lastName" value="<%= data[0].lastName %>">
+                                            <input style="text-transform: capitalize;" class="form-control" id="name" name="name" value="<%= data[0].firstName %> <%= data[0].lastName %>" disabled>
+                                            <label for="name">Full name</label>
+                                        </div>
+                                        <div class="form-floating mb-2">
+                                            <input class="form-control checkIn" id="checkIn" name="checkIn" value="<%= data[0].checkIn %>">
+                                            <label for="checkIn">Check-in</label>
+                                        </div>
+                                        <div class="form-floating mb-2">
+                                            <input class="form-control" id="checkOut" name="checkOut" value="<%= data[0].checkOut %>">
+                                            <label for="checkOut">Check-out</label>
+                                        </div>
+                                        <div class="form-floating mb-2">
+                                            <input class="form-control" id="timeIn" name="timeIn" value="<%= data[0].timeIn %>">
+                                            <label for="timeIn">Time-in</label>
+                                        </div>
+                                        <div class="form-floating mb-2">
+                                            <input class="form-control" id="timeOut" name="timeOut" value="<%= data[0].timeOut %>">
+                                            <label for="timeOut">Time-out</label>
+                                        </div>
+                                        <div class="row g-1">
+                                            <div class="col-md">
+                                                <div class="form-floating mb-2">
+                                                    <select class="form-select numOfHours" name="numOfHours" id="floatingSelect" aria-label="Floating label select example">
+                                                        <option value="12" <% if (data[0].numOfHours === 12) { %>selected<% } %>>12</option>
+                                                        <option value="22" <% if (data[0].numOfHours === 22) { %>selected<% } %>>22</option>
+                                                    </select>
+                                                    <label for="floatingSelect">Number of Hours</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md">
+                                                <div class="form-floating mb-2">
+                                                    <select class="form-select numOfPerson" name="numOfPerson" id="floatingSelect" aria-label="Floating label select example">
+                                                        <option value="35" <% if (data[0].numOfPerson === '35') { %>selected<% } %>>35</option>
+                                                        <option value="30" <% if (data[0].numOfPerson === '30') { %>selected<% } %>>30</option>
+                                                        <option value="25" <% if (data[0].numOfPerson === '25') { %>selected<% } %>>25</option>
+                                                        <option value="20" <% if (data[0].numOfPerson === '20') { %>selected<% } %>>20</option>
+                                                        <option value="15" <% if (data[0].numOfPerson === '15') { %>selected<% } %>>15 and below</option>
+                                                    </select>
+                                                    <label for="floatingSelect">Number of Persons</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-floating mb-2">
+                                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="status">
+                                              <option selected value="<%= data[0].status %>"><%= data[0].status %></option>
+                                              <option value="pending">pending</option>
+                                              <option value="approved">approve</option>
+                                              <option value="cancelled">cancel</option>
+                                            </select>
+                                            <label for="floatingSelect">Reservation status</label>
+                                        </div>
+                                        <div class="form-floating mb-2">
+                                            <p>Total: ₱<span class="totalPrice"><%= data[0].total %></span></p>
+                                            <input type="hidden" class="totalInput" name="total" value="<%= data[0].total %>">
+                                        </div>
+                                        <button class="btn btn-primary mt-1 w-100" type="submit">Update reservation</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+            <!-- End of Main Content -->
+            <%- include('plugins/footer') %>
+    
+    <script>
+        const dataPriceList = <%- JSON.stringify(priceList) %>;
+        const form = document.querySelector(".form");
+        const formCheckIn = document.querySelector('.checkIn')
+        let formNumOfHours = document.querySelector('.numOfHours')
+        let formNumOfPerson = document.querySelector('.numOfPerson')
+        let totalPrice = document.querySelector('.totalPrice')
+
+        console.log(dataPriceList)
+
+        form.addEventListener("change", (event) => {
+
+            // Convert the date string to a Date object
+            const date = new Date(formCheckIn.value);
+            const dayOfWeek = date.getDay();
+            const monthName = date.toLocaleString('en-us', { month: 'long' });
+            let week = dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0;
+            let weekString = '';
+            week ? weekString = 'weekends' : weekString = 'weekdays';
+            let total = 0;
+
+            console.log(weekString)
+
+            const priceObject = dataPriceList.find(price => price.month == monthName && price.whatWeek == weekString && price.numOfHours == parseInt(formNumOfHours.value) && price.numOfPerson == parseInt(formNumOfPerson.value))
+
+            priceObject ? totalPrice.textContent = priceObject.price.toLocaleString() : totalPrice.textContent = 'Rates not available!'
+            
+            document.querySelector('.totalInput').value = priceObject.price;
+
+        });
+    </script>
+
+    <script>
+        let checkIn = flatpickr("#checkIn", {
+            disableMobile: true,
+            altInput: true,
+            altFormat: "F j, Y",
+            dateFormat: "Y-m-d",
+            // disable: disableDates,
+
+        });
+
+        let checkOut = flatpickr("#checkOut", {
+            disableMobile: true,
+            altInput: true,
+            altFormat: "F j, Y",
+            dateFormat: "Y-m-d",
+            // disable: disableDates,
+        });
+
+
+        let timeIn = flatpickr("#timeIn", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "h:i K",
+            time_24hr: false
+        });
+
+        let timeOut = flatpickr("#timeOut", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "h:i K",
+            time_24hr: false
+        });
+    </script>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/admin/bootstrap/js/bootstrap.bundle.min.js"></script>
+ 
+    <script src="/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/admin/js/sb-admin-2.min.js"></script>
+
+    <script src="/adminScript.js"></script>
+
+</body>
+</html>

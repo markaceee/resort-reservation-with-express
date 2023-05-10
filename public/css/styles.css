@@ -6,9 +6,9 @@
     --colorTwo: #70C3D5;
     --colorThree: #32848F;
     --yellow: #FFD028;
-    --approved: rgb(51, 164, 51);
-    --cancelled: rgb(182, 39, 39);
-    --checked-out: rgb(108, 101, 230);
+    --approved: #33a433;
+    --cancelled: #b62727;
+    --checked-out: #6c65e6;
     --white: #fff;
     --whiteOne: #F7FFFF;
     --bg: #EAECF2;
@@ -584,7 +584,8 @@ html{
 
 .amenities .box-container{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+
     gap: 5rem;
 }
 
@@ -669,17 +670,50 @@ html{
 
 
 /* --------------------------- LOGIN START ------------------------- */
-.login, .register{
+.login{
     height: calc(100vh - 83.40px);
     background-image: url('../images/two.svg');
     background-repeat: no-repeat;
     background-size: cover;
     padding: 2rem;
-    
+}
+
+.login .box{
+    align-items: center;
+    display: flex; 
+    gap: .5rem; 
+    margin-bottom: 1rem; 
+    justify-content: right;
+}
+
+.register{
+    background-image: url('../images/two.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 2rem;
+}
+
+.register .name{
+    display: flex;
+    gap: 2rem;
 }
 
 
-.login .box-container, .register .box-container{
+.register .box-container{
+    padding: 4rem 3rem;
+    margin: 0 auto;
+    width: 50rem;
+    /* border-radius: 3px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    top: 55%; */
+    background: var(--white);
+    box-shadow: var(--box-shadow);
+}
+
+
+.login .box-container{
     padding: 4rem 3rem;
     border-radius: 3px;
     transform: translate(-50%, -50%);
@@ -888,7 +922,7 @@ html{
 }
 
 .pricing{
-    padding: 10rem 17%;
+    padding: 8rem 5%;
     font-size: 1.5rem;
     background-image: url('../images/two.svg');
     background-size: cover;
@@ -991,7 +1025,7 @@ html{
 /* --------------------------- MY BOOKING START ----------------------- */
 
 .myBookings{
-    padding: 10rem 12%;
+    padding: 8rem 5%;
     font-size: 1.5rem;
     background-image: url('../images/two.svg');
     background-size: cover;
@@ -1060,7 +1094,7 @@ html{
 
 
 .faq{
-    padding: 10rem 17%;
+    padding: 8rem 5%;
     font-size: 1.5rem;
     background-image: url('../images/two.svg');
     background-size: cover;
@@ -1193,7 +1227,7 @@ html{
     background-image: url('../images/two.svg');
     background-repeat: no-repeat;
     background-size: cover;
-    padding: 10rem 17%;
+    padding: 8rem 5%;
 }
 .contact .header{
     text-align: center;
