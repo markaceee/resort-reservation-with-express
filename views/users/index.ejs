@@ -205,120 +205,29 @@
         </div>
         <div class="swiper review-slider">
             <div class="swiper-wrapper">
-                <div class="swiper-slide box">
-                    <div class="header">
-                        <div class="image">
-                            <img src="images/default_photo.jpg" alt="">
-                            <div class="info">
-                                <h1>John Doe</h1>
-                                <p class="reviewDate">a year ago</p>
+                <% result.forEach(reviews => { %>  <!-- printing reviews name (comment) -->
+                    
+                    <div class="swiper-slide box">
+                        <div class="header">
+                            <div class="image">
+                                <img src="images/default_photo.jpg" alt="">
+                                <div class="info">
+                                    <h1 style="text-transform: capitalize;"><%= reviews.name %></h1>
+                                    <p class="reviewDate">a year ago</p>
+                                </div>
+                            </div>
+                            <div class="stars"> <!--automatic stars-->
+                                <% for (let i = 0; i <reviews.stars; i ++){%>
+                                    <i class="bi bi-star-fill"></i>
+                                    <% if (i == reviews.stars - 1){%>
+                                        <% for(let n =0; n < 5 - reviews.stars; n++){ %>
+                                            <i class="bi bi-star"></i>
+                                <% }}} %>
                             </div>
                         </div>
-                        <div class="stars">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
+                        <p class="reviewText"><%= reviews.reviewsMessage %></p> <!--Changing the message reviews-->
                     </div>
-                    <p class="reviewText">Lorem ipsum dolor sit amet, egestas neque, donec nullam ipsum faucibus non mattis in, lacus odio dignissim hac. Platea dictumst ea dictum congue. Ullamcorper nibh purus, id pede ipsum, gravida et sit ut tortor nunc.</p>
-                </div>
-                <div class="swiper-slide box">
-                    <div class="header">
-                        <div class="image">
-                            <img src="images/default_photo.jpg" alt="">
-                            <div class="info">
-                                <h1>John Doe</h1>
-                                <p class="reviewDate">a year ago</p>
-                            </div>
-                        </div>
-                        <div class="stars">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                    </div>
-                    <p class="reviewText">Lorem ipsum dolor sit amet, egestas neque, donec nullam ipsum faucibus non mattis in, lacus odio dignissim hac. Platea dictumst ea dictum congue. Ullamcorper nibh purus, id pede ipsum, gravida et sit ut tortor nunc.</p>
-                </div>
-                <div class="swiper-slide box">
-                    <div class="header">
-                        <div class="image">
-                            <img src="images/default_photo.jpg" alt="">
-                            <div class="info">
-                                <h1>John Doe</h1>
-                                <p class="reviewDate">a year ago</p>
-                            </div>
-                        </div>
-                        <div class="stars">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                    </div>
-                    <p class="reviewText">Lorem ipsum dolor sit amet, egestas neque, donec nullam ipsum faucibus non mattis in, lacus odio dignissim hac. Platea dictumst ea dictum congue. Ullamcorper nibh purus, id pede ipsum, gravida et sit ut tortor nunc.</p>
-                </div>
-                <div class="swiper-slide box">
-                    <div class="header">
-                        <div class="image">
-                            <img src="images/default_photo.jpg" alt="">
-                            <div class="info">
-                                <h1>John Doe</h1>
-                                <p class="reviewDate">a year ago</p>
-                            </div>
-                        </div>
-                        <div class="stars">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                    </div>
-                    <p class="reviewText">Lorem ipsum dolor sit amet, egestas neque, donec nullam ipsum faucibus non mattis in, lacus odio dignissim hac. Platea dictumst ea dictum congue. Ullamcorper nibh purus, id pede ipsum, gravida et sit ut tortor nunc.</p>
-                </div>
-                <div class="swiper-slide box">
-                    <div class="header">
-                        <div class="image">
-                            <img src="images/default_photo.jpg" alt="">
-                            <div class="info">
-                                <h1>John Doe</h1>
-                                <p class="reviewDate">a year ago</p>
-                            </div>
-                        </div>
-                        <div class="stars">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                    </div>
-                    <p class="reviewText">Lorem ipsum dolor sit amet, egestas neque, donec nullam ipsum faucibus non mattis in, lacus odio dignissim hac. Platea dictumst ea dictum congue. Ullamcorper nibh purus, id pede ipsum, gravida et sit ut tortor nunc.</p>
-                </div>
-                <div class="swiper-slide box">
-                    <div class="header">
-                        <div class="image">
-                            <img src="images/default_photo.jpg" alt="">
-                            <div class="info">
-                                <h1>John Doe</h1>
-                                <p class="reviewDate">a year ago</p>
-                            </div>
-                        </div>
-                        <div class="stars">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                    </div>
-                    <p class="reviewText">Lorem ipsum dolor sit amet, egestas neque, donec nullam ipsum faucibus non mattis in, lacus odio dignissim hac. Platea dictumst ea dictum congue. Ullamcorper nibh purus, id pede ipsum, gravida et sit ut tortor nunc.</p>
-                </div>
+                    <% }) %>
             </div>
         </div>
     </section> 
