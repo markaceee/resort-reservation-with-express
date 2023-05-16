@@ -371,34 +371,30 @@ exports.mybookings = (req, res) => {
     let successPayment = req.query.successPayment;
     if(req.isAuthenticated()){
         connection.query(`
-        SELECT *
-        FROM reservation
-        WHERE userID = ? AND status IN ('pending', 'approved', 'checked-out') `, [req.user.id],
-        (err, rows) => {
-            connection.query(`SELECT * FROM user WHERE userID = ?`, [req.user.id], 
-                (err, result) => {
-                    connection.query(`SELECT * FROM reviews WHERE userID = ?`, [req.user.id],
-                        (err, foundReviews) => {
-                            connection.query(`SELECT * FROM payment WHERE userID = ?`, [req.user.id],
-                            (err, totalGuestPaid) => {
-                                err ? console.log(err) : res.render("users/mybookings", {
-                                    isAuthenticated: true,
-                                    rows, 
-                                    success, 
-                                    successF,
-                                    successPayment,
-                                    error, 
-                                    result,
-                                    foundReviews,
-                                    totalGuestPaid
-                                })
-                            })
-                        }
-                    )
-                }
-            )
-            
-        })
+        SELECT r.*, p.totalGuestPaid
+        FROM reservation r
+        INNER JOIN payment p ON r.reservationID = p.reservationID
+        WHERE r.userID = ? AND r.status IN ('pending', 'approved', 'checked-out')
+    `, [req.user.id], (err, rows) => {
+        connection.query(`SELECT * FROM user WHERE userID = ?`, [req.user.id], 
+            (err, result) => {
+                connection.query(`SELECT * FROM reviews WHERE userID = ?`, [req.user.id],
+                    (err, foundReviews) => {
+                        err ? console.log(err) : res.render("users/mybookings", {
+                            isAuthenticated: true,
+                            rows, 
+                            success, 
+                            successF,
+                            successPayment,
+                            error, 
+                            result,
+                            foundReviews
+                        })
+                    }
+                )
+            }
+        )
+    })
     }else{res.redirect("/login")}
 }
 
