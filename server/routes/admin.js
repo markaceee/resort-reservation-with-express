@@ -36,9 +36,8 @@ router.get("/messages/delete/:id", adminController.adminMessagesDelete)
 router.get("/messages/edit/:id", adminController.adminMessagesEdit)
 router.post("/messages/edit/:id", adminController.adminMessagesEditProcess)
 
-
-
-
+router.get("/reviews", adminController.adminReviews)
+router.get("/reviews/delete/:id", adminController.adminReviewsDelete)
 
 
 

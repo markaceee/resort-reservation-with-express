@@ -22,7 +22,7 @@ const transporter = nodemailer.createTransport({
 });
 
 
-exports.adminIndex = async (req, res) => {
+exports.adminIndex = (req, res) => {
     
     if(req.isAuthenticated() && req.user.role === 0){
         connection.query(`SELECT * FROM reservation`,
@@ -34,7 +34,28 @@ exports.adminIndex = async (req, res) => {
                     connection.query(`SELECT * FROM reviews`,
                     (err, reviews) => {
                         if(err) console.log(err)
-                        res.render("admin/index", {reservation, user, reviews})
+                        else{
+                            connection.query(`SELECT * FROM reservation WHERE status = 'approved'`,
+                            (err, approvedData) => {
+                                if(err) console.log(err)
+                                else{
+                                    approvedData.forEach(data => {
+                            
+                                        const checkInDate = new Date(data.checkIn);
+                                        const twoDaysBeforeCheckIn = new Date(data.checkIn);
+                                        twoDaysBeforeCheckIn.setDate(twoDaysBeforeCheckIn.getDate() - 2);
+        
+                                        console.log("Date" + checkInDate + "Date" + twoDaysBeforeCheckIn)
+                                        
+                                    })
+                                    
+                                    res.render("admin/index", {reservation, user, reviews})
+                                    
+                                }
+
+                            })
+                        }
+                        
                     })
                 })
             })
@@ -43,10 +64,6 @@ exports.adminIndex = async (req, res) => {
         res.redirect("/admin/login")
         console.log("nag login pero false")
     }
-
-    // (req.isAuthenticated() && req.user.role === 0) ? 
-    //     res.render("admin/index") :
-    //     res.redirect("/admin/login")
 }
 
 exports.adminLogout = (req, res) => {
@@ -447,7 +464,33 @@ exports.adminPricingProcess = (req, res) => {
         })
 }
 
+exports.adminReviews = (req, res) => {
+    const success = req.query.success
+    if(req.isAuthenticated() && req.user.role === 0){
+        connection.query(`
+            SELECT * FROM reviews`,
+            (err, data) => {
+                err ? console.log(err) : res.render("admin/reviews", {data, success})
+            })
+    }else{
+        res.redirect("/admin/login")
+    }
+}
 
+exports.adminReviewsDelete = (req, res) => {
+    let error = encodeURIComponent('reviews deleted');
+    if (req.isAuthenticated() && req.user.role === 0){ 
+        connection.query(`
+            DELETE FROM reviews
+            WHERE reviewsID = ?`,
+        [req.params.id],
+        (err, foundUser) => {
+            err ? console.log(err) : res.redirect("/admin/reviews?success=" + error);
+        });
+    }else{
+        res.redirect("/admin");
+    }   
+}
 
 
 

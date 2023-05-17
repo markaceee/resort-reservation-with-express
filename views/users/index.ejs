@@ -204,7 +204,33 @@
             <p class="secondP">Here's our guest, share their experience with us</p>
         </div>
         <div class="swiper review-slider">
-
+            <div class="swiper-wrapper">
+                 <% result.forEach(reviews => { %>
+                <div class="swiper-slide box">
+                    <div class="header">
+                        <div class="image">
+                            <img src="images/default_photo.jpg" alt="">
+                            <div class="info">
+                                <h1 style="text-transform: capitalize;">
+                                    <%= reviews.name %>
+                                </h1>
+                                <p class="reviewDate">a year ago</p>
+                            </div>
+                        </div>
+                        <div class="stars">
+                            <% for(let i = 0; i < reviews.stars; i++ ){ %>
+                                <i class="bi bi-star-fill"></i>
+                                <% if(i == reviews.stars - 1){ %>
+                                    <% for(let n = 0; n < 5 - reviews.stars; n++){ %>
+                                        <i class="bi bi-star"></i>
+                                <% }} %>
+                            <% }%>
+                        </div>
+                    </div>
+                    <p class="reviewText"><%= reviews.reviewsMessage %></p>
+                </div>
+                <% })%>  
+            </div>
         </div>
     </section> 
 

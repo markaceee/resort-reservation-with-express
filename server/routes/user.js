@@ -40,6 +40,9 @@ router.post('/profile', userController.profileProcess)
 router.get('/mybookings/payment/:id', userController.payment)
 router.post('/mybookings/payment/:id', userController.paymentProcess)
 
+
+
+
 // ------------------------- USER CONTROLLER END -----------------------------
 
 

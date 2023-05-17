@@ -14,6 +14,14 @@
 }
 
 
+.holiday{
+    padding: 0 .5rem;
+    border-radius: .5rem;
+    background-color: var(--yellow);
+    color: var(--white);
+    margin-left: .5rem;
+}
+
 .weekdays{
     padding: 0 .5rem;
     border-radius: .5rem;

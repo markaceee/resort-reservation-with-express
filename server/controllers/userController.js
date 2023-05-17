@@ -28,9 +28,13 @@ connection.query(`SELECT * FROM pricelist`,
 
 
 exports.index = (req, res) => {    
-    (req.isAuthenticated() && req.user.role === 1) ? 
-    res.render("users/index", {isAuthenticated: true, toDisable: checkInDate}) :
-    res.render("users/index", {isAuthenticated, toDisable: checkInDate})
+    connection.query(`SELECT * FROM reviews`, (err, result) => {
+        if(req.isAuthenticated() && req.user.role === 1){
+            res.render("users/index", {isAuthenticated: true, toDisable: checkInDate, result})
+        }else{
+            res.render("users/index", {isAuthenticated, toDisable: checkInDate, result})
+        }
+    })
 }
 
 exports.blank = (req, res) => {
@@ -97,19 +101,22 @@ exports.recoverProcess = async (req, res) => {
     (err, foundEmail) => {
         if(!err){
             if(foundEmail.length){
-                transporter.sendMail(options, (err, info) => {
-                    if(err){
-                        console.log(err);
-                    }else{
-                        connection.query(`
-                        UPDATE user
-                        SET reset_password_token = ?, token_expiration = ?
-                        WHERE email = ?`,
-                        [token, expirationToken, sendTO],
-                        (err, rows) => {
-                            err ? console.log(err) : res.redirect("/recover-account?success="+success);
-                        });
-                    }
+                connection.query(`
+                UPDATE user
+                SET reset_password_token = ?, token_expiration = ?
+                WHERE email = ?`,
+                [token, expirationToken, sendTO],
+                (err, rows) => {
+
+                    if(err){console.log(err)}
+                    
+                    res.redirect("/recover-account?success="+success)
+
+                    transporter.sendMail(options, (err, info) => {
+                        if(err){
+                            console.log(err)
+                        }
+                    });
                 });
             }else{
                 res.redirect("/recover-account?error="+error);
