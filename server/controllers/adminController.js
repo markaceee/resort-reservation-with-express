@@ -44,8 +44,8 @@ exports.adminIndex = (req, res) => {
                                         const checkInDate = new Date(data.checkIn);
                                         const twoDaysBeforeCheckIn = new Date(data.checkIn);
                                         twoDaysBeforeCheckIn.setDate(twoDaysBeforeCheckIn.getDate() - 2);
-        
-                                        console.log("Date" + checkInDate + "Date" + twoDaysBeforeCheckIn)
+                                        
+                                        
                                         
                                     })
                                     
